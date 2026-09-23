@@ -212,6 +212,12 @@ $highlighting-css$
                 <a href="$report-url$" target="_blank" rel="noopener">Report it</a>$if(source-url)$,
                 or <a href="$source-url$" target="_blank" rel="noopener">read this page&rsquo;s source</a>$endif$
             </p>
+            $if(license-name)$
+            <p class="page-license">
+                The text of this book is licensed under
+                $if(license-url)$<a href="$license-url$" target="_blank" rel="noopener license">$license-name$</a>$else$$license-name$$endif$.
+            </p>
+            $endif$
             $endif$
         </main>
 

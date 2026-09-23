@@ -59,6 +59,13 @@ def page_metadata(book: Book, page: Page, output_format: str, extra: Optional[di
         metadata["breadcrumb-page-url"] = f"{prefix}{page.html_path}"
         metadata["pdf-url"] = f"{prefix}pdf/{Path(page.html_path).with_suffix('.pdf').as_posix()}"
         metadata["book-pdf-url"] = f"{prefix}book/book.pdf"
+        # The licence the book's text carries, shown in the page footer. A book whose
+        # config names none simply renders no notice.
+        licence = book.config.get("license") or {}
+        if licence.get("name"):
+            metadata["license-name"] = licence["name"]
+            if licence.get("url"):
+                metadata["license-url"] = licence["url"]
         source = metadata["source-path"]
         if book.config.get("repo-url"):
             repo = book.config["repo-url"].rstrip("/")
