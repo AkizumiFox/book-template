@@ -1760,7 +1760,8 @@ th {
   }
 }
 
-.page-feedback {
+.page-feedback,
+.page-license {
   max-width: var(--content-width);
   margin: 1.5rem auto 0;
   color: var(--faint);
@@ -1768,7 +1769,13 @@ th {
   text-align: center;
 }
 
-.page-feedback a {
+/* The two sit together as one footer block, so the second does not repeat the gap. */
+.page-feedback + .page-license {
+  margin-top: 0.35rem;
+}
+
+.page-feedback a,
+.page-license a {
   color: var(--muted);
 }
 
