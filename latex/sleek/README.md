@@ -7,6 +7,15 @@ repository and is committed nowhere; referring to it by absolute path would
 break the build for everyone else and in CI, so the two files the book uses are
 vendored into the tree.
 
+> **Licence, unresolved.** The upstream repository named above returns 404 as of
+> 2026-09-23, and neither `.sty` file carries a licence statement, so the terms
+> these two files are offered under could not be established. This repository's
+> own `LICENSE` therefore excludes this directory. Before redistributing, either
+> establish the terms with the author or replace the two files; the book uses
+> only `\mdfdefinestyle{thicc}` and the `mdthm` key from `sleek-theorems.sty`,
+> plus the package list and page geometry from `sleek.sty`, all of which are
+> short enough to rewrite from scratch.
+
 | file | what it gives the book |
 |------|------------------------|
 | `sleek.sty` | page geometry, running-head frame, paragraph and table typography, link colours, a few helper macros |

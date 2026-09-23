@@ -1,0 +1,38 @@
+MIT License
+
+Copyright (c) 2026 Akizumi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+-------------------------------------------------------------------------------
+Third-party components
+-------------------------------------------------------------------------------
+
+The licence above covers this repository's own work: the build engine, the Lua
+filters, the templates, the LaTeX styles written for it, the authoring
+standards and the demo chapter.
+
+It does NOT cover `latex/sleek/`, which vendors two files from a third party's
+LaTeX style, recorded in `latex/sleek/README.md` along with every modification
+made to them. Those files remain under whatever terms their author set. As of
+this writing the upstream repository named in that README could not be reached
+and no licence statement accompanies the files, so their terms are unverified;
+anyone redistributing this repository should establish them, or replace the two
+files, before relying on the licence above for that directory.
