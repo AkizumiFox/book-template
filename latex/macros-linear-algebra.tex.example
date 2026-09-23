@@ -1,0 +1,192 @@
+% ======================================================================================
+% MACROS THIS BOOK DOES NOT LOAD
+% ======================================================================================
+% Nothing reads this file. The extension is .example on purpose: config.json points
+% "macros" at latex/macros.tex, and only that file reaches the PDF and the MathJax
+% macro table.
+%
+% This is the other half of the split. latex/macros.tex keeps what any mathematics
+% book wants (delimiters, a few operators, the blackboard and calligraphic
+% alphabets, bold Latin letters, derivatives, the \coord / \mtx pattern). Everything
+% below is what the linear algebra book accumulated on top of that, plus two sets it
+% inherited from an earlier project and never removed (Dirac notation, probability
+% and distributions).
+%
+% Raid it. When this book needs \tr, or bold Greek vectors, or a transpose
+% shorthand, copy those lines into latex/macros.tex and delete the rest of the
+% thought. Do not \input this file wholesale: every macro defined is a name the
+% book can no longer use for anything else, and unused macros are how \tr came to
+% be defined in three places at once.
+%
+% Note on duplication with the engine: latex/latex-template.sty already declares
+% \tr, \rank, \Span, \diag, \id, \abs, \norm, \floor, \ceil, \im, \lcm and the
+% probability set for the PDF. What a definition here buys you is the *website* --
+% build/macros.py reads latex/macros.tex and nothing else, so a macro only LaTeX
+% knows renders as an unknown-macro warning in the browser. Copy a line across when
+% the book starts using it on a page.
+% ======================================================================================
+
+% ======================================================================================
+% CALLIGRAPHIC ALIASES
+% ======================================================================================
+% A second name for latex/macros.tex's \sA ... \sZ. The linear algebra book uses
+% \cF for a family of operators. Keep one set or the other, not both.
+\def\cA{\mathcal{A}}
+\def\cB{\mathcal{B}}
+\def\cC{\mathcal{C}}
+\def\cD{\mathcal{D}}
+\def\cE{\mathcal{E}}
+\def\cF{\mathcal{F}}
+\def\cG{\mathcal{G}}
+\def\cH{\mathcal{H}}
+\def\cI{\mathcal{I}}
+\def\cJ{\mathcal{J}}
+\def\cK{\mathcal{K}}
+\def\cL{\mathcal{L}}
+\def\cM{\mathcal{M}}
+\def\cN{\mathcal{N}}
+\def\cO{\mathcal{O}}
+\def\cP{\mathcal{P}}
+\def\cQ{\mathcal{Q}}
+\def\cR{\mathcal{R}}
+\def\cS{\mathcal{S}}
+\def\cT{\mathcal{T}}
+\def\cU{\mathcal{U}}
+\def\cV{\mathcal{V}}
+\def\cW{\mathcal{W}}
+\def\cX{\mathcal{X}}
+\def\cY{\mathcal{Y}}
+\def\cZ{\mathcal{Z}}
+
+% ======================================================================================
+% BOLD GREEK VECTORS
+% ======================================================================================
+% Upright bold Greek, so a Greek-lettered vector matches the bold upright Latin
+% ones. Needs the bm and upgreek packages (latex/preamble.tex loads both).
+\def \valpha {\bm{\upalpha}}
+\def \vbeta {\bm{\upbeta}}
+\def \vgamma {\bm{\upgamma}}
+\def \vdelta {\bm{\updelta}}
+\def \vepsilon {\bm{\upepsilon}}
+\def \vzeta {\bm{\upzeta}}
+\def \veta {\bm{\upeta}}
+\def \vtheta {\bm{\uptheta}}
+\def \viota {\bm{\upiota}}
+\def \vkappa {\bm{\upkappa}}
+\def \vlambda {\bm{\uplambda}}
+\def \vmu {\bm{\upmu}}
+\def \vnu {\bm{\upnu}}
+\def \vxi {\bm{\upxi}}
+\def \vpi {\bm{\uppi}}
+\def \vrho {\bm{\uprho}}
+\def \vsigma {\bm{\upsigma}}
+\def \vtau {\bm{\uptau}}
+\def \vupsilon {\bm{\upupsilon}}
+\def \vphi {\bm{\upphi}}
+\def \vchi {\bm{\upchi}}
+\def \vpsi {\bm{\uppsi}}
+\def \vomega {\bm{\upomega}}
+\def \vvarepsilon {\bm{\upvarepsilon}}
+\def \vvartheta {\bm{\upvartheta}}
+\def \vvarpi {\bm{\upvarpi}}
+\def \vvarrho {\bm{\upvarrho}}
+\def \vvarsigma {\bm{\upvarsigma}}
+\def \vvarphi {\bm{\upvarphi}}
+\def \vGamma {\bm{\Gamma}}
+\def \vDelta {\bm{\Delta}}
+\def \vTheta {\bm{\Theta}}
+\def \vLambda {\bm{\Lambda}}
+\def \vXi {\bm{\Xi}}
+\def \vPi {\bm{\Pi}}
+\def \vSigma {\bm{\Sigma}}
+\def \vUpsilon {\bm{\Upsilon}}
+\def \vPhi {\bm{\Phi}}
+\def \vPsi {\bm{\Psi}}
+\def \vOmega {\bm{\Omega}}
+
+% ======================================================================================
+% LINEAR ALGEBRA OPERATORS
+% ======================================================================================
+\def\tr{\operatorname{tr}}
+\def\rank{\operatorname{rank}}
+\def\nullity{\operatorname{nullity}}
+\def\spn{\operatorname{span}}
+\def\Span{\operatorname{span}}
+\def\col{\operatorname{col}}
+\def\row{\operatorname{row}}
+\def\nul{\operatorname{nul}}
+\def\ker{\operatorname{ker}}
+\def\img{\operatorname{img}}
+\def\im{\operatorname{im}}
+\def\adj{\operatorname{adj}}
+\def\diag{\operatorname{diag}}
+\def\spec{\operatorname{spec}}
+\def\Hom{\operatorname{Hom}}
+\def\End{\operatorname{End}}
+\def\GL{\operatorname{GL}}
+\def\SL{\operatorname{SL}}
+\def\Orth{\operatorname{O}}
+\def\SO{\operatorname{SO}}
+\def\Unit{\operatorname{U}}
+\def\Sp{\operatorname{Sp}}
+\def\codim{\operatorname{codim}}
+\def\Sym{\operatorname{Sym}}
+\def\Alt{\operatorname{Alt}}
+\def\vol{\operatorname{vol}}
+\def\conv{\operatorname{conv}}
+\def\Mat{\operatorname{M}}
+\def\ev{\operatorname{ev}}
+\def\vecop{\operatorname{vec}}
+\def\fl{\operatorname{fl}}
+
+% Transpose and conjugate transpose, as superscripts: \A\tp, \A\hc
+\def\tp{^{\top}}
+\def\hc{^{*}}
+% The characteristic-polynomial letter, so one \def changes it book-wide
+\def\charp{p}
+% Triple bar, for an induced (operator) norm
+\providecommand{\uinorm}[1]{\left|\!\left|\!\left| #1 \right|\!\right|\!\right|}
+
+% ======================================================================================
+% PROBABILITY AND STATISTICS (inherited, unused by the linear algebra book)
+% ======================================================================================
+\def\Ev{\operatorname*{\mathbb{E}}}
+\def\Pr{\operatorname{Pr}}
+\def\Var{\operatorname*{Var}}
+\def\Cov{\operatorname*{Cov}}
+\def\Cor{\operatorname*{Cor}}
+\def\Corr{\operatorname*{Corr}}
+\providecommand{\Prob}[1]{\mathbb{P}\left( #1 \right)}
+\providecommand{\Exp}[1]{\mathbb{E}\left[ #1 \right]}
+\providecommand{\Normal}[2]{\mathcal{N}\left( #1, #2 \right)}
+\providecommand{\Uniform}[2]{\text{Uniform}\left( #1, #2 \right)}
+
+% Distributions
+\def\distBern{\operatorname{Ber}}
+\def\distBin{\operatorname{Bin}}
+\def\distGeom{\operatorname{Geo}}
+\def\distNB{\operatorname{NB}}
+\def\distPois{\operatorname{Poi}}
+\def\distHyp{\operatorname{Hyp}}
+\def\distUnif{\operatorname{Unif}}
+\def\distExp{\operatorname{Exp}}
+\def\distGamma{\operatorname{Gamma}}
+\def\distN{\operatorname{\mathcal{N}}}
+\def\distBeta{\operatorname{Beta}}
+\def\distCauchy{\operatorname{Cauchy}}
+\def\distLognormal{\operatorname{Lognormal}}
+\def\distWeibull{\operatorname{Weibull}}
+\def\distPareto{\operatorname{Pareto}}
+\def\distDir{\operatorname{Dir}}
+\def\distMult{\operatorname{Mult}}
+\def\distWishart{\operatorname{Wishart}}
+\def\distInvWishart{\operatorname{InvWishart}}
+
+% ======================================================================================
+% DIRAC NOTATION (inherited, unused by the linear algebra book)
+% ======================================================================================
+\providecommand{\bra}[1]{\langle #1 |}
+\providecommand{\ket}[1]{| #1 \rangle}
+\providecommand{\braket}[2]{\langle #1 | #2 \rangle}
+\providecommand{\ketbra}[2]{| #1 \rangle\langle #2 |}
+\providecommand{\expect}[1]{\langle #1 \rangle}

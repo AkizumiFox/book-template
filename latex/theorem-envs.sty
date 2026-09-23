@@ -1,0 +1,184 @@
+% ======================================================================================
+% BOOK ENVIRONMENTS IN THE SLEEK FRAME
+% ======================================================================================
+% Every environment filters/theorems.lua can emit, built on sleek's framed
+% theorem style (latex/sleek/sleek-theorems.sty: the "thicc" mdframed style and
+% the \declaretheorem[mdthm=...] pattern).
+%
+% This file holds the *style* only. Which environments exist, what they are
+% called, which counter they share and what colour they wear all come from the
+% book's config (environment_settings), which the build turns into a short list
+% of calls to the \book...env commands below (_build/tmp/environments.tex).
+% ======================================================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{latex/theorem-envs}[2026/09/23 Book environments in the sleek frame]
+
+\RequirePackage{latex/sleek/sleek-theorems}
+\RequirePackage{etoolbox}
+\RequirePackage{xcolor}
+
+% ======================================================================================
+% DEFAULT COLOURS
+% ======================================================================================
+% The big environments all carry a colour in the config; the small ones carry
+% none, and fall back to the grey bar the book has always used (9E9E9E, set in
+% \booksmallenv below). \warning is the one small environment that was not grey,
+% so it keeps its red here. Giving a small_envs entry a `color` in the config
+% overrides either, because the generated \definecolor runs after this file.
+\providecolor{envwarning}{HTML}{B0414F}
+
+% ======================================================================================
+% THE FRAME
+% ======================================================================================
+% sleek's "thicc" style, with the two changes a 3,300-page book needs: boxes may
+% break across pages (a single proof can be longer than a page), and a broken box
+% keeps the book's split skips.
+\mdfdefinestyle{bookenv}{%
+    style=thicc,
+    nobreak=false,
+    % mdframed's keys are not reset for a nested box, so a box inside a titled
+    % one would repeat that title. Clearing it here is safe: \mdtheorem passes
+    % style= first and its own frametitle= after, so the titled boxes still win.
+    frametitle={},
+    splittopskip=\topskip,
+    splitbottomskip=0.3\topskip,
+    innertopmargin=0.5em,
+    innerbottommargin=0.6em,
+    frametitlerule=false,
+    frametitlefont={\normalfont\sffamily\bfseries},
+    theoremtitlefont={\normalfont\sffamily\bfseries\color{black}},
+}
+
+% \bookenvstyle{<env>}{<colour>} -- the environment's own mdframed style.
+% The colour is the config one; the tints keep sleek's weights (a !20 rule and
+% title bar over a barely-there wash), so the hue is the book's and the look is
+% sleek's.
+\newcommand{\bookenvstyle}[2]{%
+    \mdfdefinestyle{bookenv@#1}{%
+        style=bookenv,
+        linecolor=#2!20,
+        backgroundcolor=#2!5,
+        frametitlebackgroundcolor=#2!20,
+        frametitlefontcolor=#2!60!black,
+    }%
+}
+
+% ======================================================================================
+% SPACE ABOVE A BOX THAT FOLLOWS A HEADING
+% ======================================================================================
+% An mdframed box is a list underneath, and LaTeX deliberately drops a list's
+% \topsep when the list comes straight after a sectioning heading (\@trivlist
+% skips the \addvspace while \@nobreak is true). The old left-bar boxes got away
+% with it; a box with a title bar does not -- the bar lands on the heading's
+% descenders. This puts the space back, and keeps the heading and the box on the
+% same page, which is what \@nobreak was protecting.
+\newcommand{\bookenvheadspace}{%
+    \par
+    \if@nobreak\nobreak\vskip\topskip\fi
+}
+
+% ======================================================================================
+% COUNTERS
+% ======================================================================================
+% One counter per counter_group in the config. Numbering is chapter.serial, and
+% \thechapter is part.chapter, so a theorem reads 1.6.3 -- exactly the three-level
+% numbering the website shows and ./build.py check compares against.
+\newcommand{\bookenvcounter}[1]{%
+    \newcounter{bookenv#1}%
+    \@ifundefined{c@chapter}{}{\@addtoreset{bookenv#1}{chapter}}%
+    \@namedef{thebookenv#1}{\thechapter.\arabic{bookenv#1}}%
+}
+
+% ======================================================================================
+% BIG ENVIRONMENTS (theorem, definition, example, ...)
+% ======================================================================================
+% A framed box with a tinted title bar carrying the name, the number and the
+% optional title: \begin{theorem}[Rank-nullity]
+
+% The unnumbered twin. \mdtheorem writes one itself, but hard-codes ":" as the
+% separator between name and title; this gives it the same "." the numbered one
+% uses. Used for the preface, where nothing is numbered.
+\newcommand{\bookenv@star}[3]{% {env}{Name}{style}
+    \csundef{#1*}\csundef{end#1*}%
+    \newenvironment{#1*}[1][]{%
+        \bookenvheadspace
+        \ifstrempty{##1}%
+            {\let\bookenv@title\relax}%
+            {\def\bookenv@title{\mdf@theoremseparator\mdf@theoremspace
+                                \mdf@theoremtitlefont ##1}}%
+        \begin{mdframed}[style=#3,frametitle={\strut #2\bookenv@title}]%
+    }{%
+        \end{mdframed}%
+    }%
+}
+
+% \bookbigenv{<env>}{<Name>}{<counter group>}{<colour>} -- numbered, sharing the
+% group's counter. This is sleek's own pattern, with the colour from the config.
+\newcommand{\bookbigenv}[4]{%
+    \providecolor{#4}{HTML}{6B6F7A}%
+    \bookenvstyle{#1}{#4}%
+    \declaretheorem[mdthm={style=bookenv@#1}, sibling=bookenv#3, name=#2]{#1}%
+    \BeforeBeginEnvironment{#1}{\bookenvheadspace}%
+    \bookenv@star{#1}{#2}{bookenv@#1}%
+}
+
+% \bookbigenvown{<env>}{<Name>}{<colour>} -- numbered, with a counter of its own.
+\newcommand{\bookbigenvown}[3]{%
+    \providecolor{#3}{HTML}{6B6F7A}%
+    \bookenvstyle{#1}{#3}%
+    \bookenvcounter{own@#1}%
+    \declaretheorem[mdthm={style=bookenv@#1}, sibling=bookenvown@#1, name=#2]{#1}%
+    \BeforeBeginEnvironment{#1}{\bookenvheadspace}%
+    \bookenv@star{#1}{#2}{bookenv@#1}%
+}
+
+% \bookbigenvplain{<env>}{<Name>}{<colour>} -- unnumbered (example, exercise, ...).
+\newcommand{\bookbigenvplain}[3]{%
+    \providecolor{#3}{HTML}{6B6F7A}%
+    \bookenvstyle{#1}{#3}%
+    \bookenv@star{#1}{#2}{bookenv@#1}%
+    \csundef{#1}\csundef{end#1}%
+    % The braces matter: a title may contain a "]" (\(F[x]\)), which would
+    % otherwise close the optional argument early when it is handed on.
+    \newenvironment{#1}[1][]{\csname #1*\endcsname[{##1}]}%
+                            {\csname end#1*\endcsname}%
+}
+
+% ======================================================================================
+% SMALL ENVIRONMENTS (proof, remark, solution, ...)
+% ======================================================================================
+% The same frame without a title bar: filters/theorems.lua writes the head
+% ("Proof.", "Remark (why this matters).") into the content, so the box carries
+% no frametitle. Three forms per environment:
+%   <env>         \begin{proof}[Optional title]      -- head typeset here
+%   <env>inline   head already in the content        -- what the filter emits
+%   <env>nested   ditto, unframed                    -- mdframed nests two deep
+
+% What to put at the very end of the box, if anything.
+\csdef{bookenv@end@proof}{\qed}
+\csdef{bookenv@end@proofofclaim}{\qed}
+
+\newcommand{\booksmallenv}[3]{% {env}{Head}{colour}
+    \providecolor{#3}{HTML}{9E9E9E}%
+    \bookenvstyle{#1}{#3}%
+    \newmdenv[style=bookenv@#1]{bookbox@#1}%
+    %
+    \csundef{#1inline}\csundef{end#1inline}%
+    \newenvironment{#1inline}%
+        {\bookenvheadspace\csname bookbox@#1\endcsname\parindent=0pt}%
+        {\csuse{bookenv@end@#1}\csname endbookbox@#1\endcsname}%
+    %
+    \csundef{#1nested}\csundef{end#1nested}%
+    \newenvironment{#1nested}%
+        {\par\parindent=0pt}%
+        {\csuse{bookenv@end@#1}\par}%
+    %
+    \csundef{#1}\csundef{end#1}%
+    \newenvironment{#1}[1][]%
+        {\bookenvheadspace\csname bookbox@#1\endcsname\parindent=0pt
+         \noindent\textit{#2}\ifstrempty{##1}{.}{. \textit{(##1)}}\ignorespaces\space}%
+        {\csuse{bookenv@end@#1}\csname endbookbox@#1\endcsname}%
+}
+
+\endinput

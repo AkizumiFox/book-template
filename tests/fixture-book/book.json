@@ -1,0 +1,53 @@
+{
+    "title": "Fixture Book",
+    "author": "Test Author",
+    "macros": "macros.tex",
+    "chapters": [
+        "src/ch01-basics",
+        {
+            "dir": "src/ch02-more",
+            "title": "More Topics",
+            "part": "Part Two"
+        }
+    ],
+    "environment_settings": {
+        "big_envs": [
+            {
+                "prefix": "thm",
+                "name": "Theorem",
+                "numbered": true,
+                "counter_group": "main",
+                "color": "#2f62b5"
+            },
+            {
+                "prefix": "lem",
+                "name": "Lemma",
+                "numbered": true,
+                "counter_group": "main",
+                "color": "#2f62b5"
+            },
+            {
+                "prefix": "def",
+                "name": "Definition",
+                "numbered": true,
+                "counter_group": "definition",
+                "color": "#b0414f"
+            },
+            {
+                "prefix": "exm",
+                "name": "Example",
+                "numbered": false,
+                "color": "#3b7a4c"
+            }
+        ],
+        "small_envs": [
+            "remark",
+            "proof",
+            "claim",
+            "solution",
+            "idea",
+            "warning",
+            "check"
+        ]
+    }
+}

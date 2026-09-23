@@ -1,0 +1,111 @@
+{
+    "_README": [
+        "Settings for one book. See README.md ('Start a book') and BUILD.md ('Another book').",
+        "Every key marked TODO below is empty on purpose and needs this book's value.",
+        "environment_settings is the template's inheritance: the environments, counters and",
+        "colours both existing books use. Change it only if this book really needs to."
+    ],
+    "_TODO": [
+        "title",
+        "author",
+        "repo-url",
+        "issues-url",
+        "deploy-repo",
+        "deploy-domain",
+        "deploy-push-url"
+    ],
+    "title": "TODO: Book Title",
+    "author": "TODO: Author Name",
+    "output": {
+        "html": "_build/html",
+        "pdf": "_build/pdf",
+        "book": "_build/pdf/book.pdf"
+    },
+    "environment_settings": {
+        "big_envs": [
+            {
+                "prefix": "thm",
+                "name": "Theorem",
+                "numbered": true,
+                "counter_group": "main",
+                "color": "#2f62b5"
+            },
+            {
+                "prefix": "lem",
+                "name": "Lemma",
+                "numbered": true,
+                "counter_group": "main",
+                "color": "#2f62b5"
+            },
+            {
+                "prefix": "cor",
+                "name": "Corollary",
+                "numbered": true,
+                "counter_group": "main",
+                "color": "#2f62b5"
+            },
+            {
+                "prefix": "prp",
+                "name": "Proposition",
+                "numbered": true,
+                "counter_group": "main",
+                "color": "#2f62b5"
+            },
+            {
+                "prefix": "cnj",
+                "name": "Conjecture",
+                "numbered": false,
+                "color": "#6b6f7a"
+            },
+            {
+                "prefix": "def",
+                "name": "Definition",
+                "numbered": true,
+                "counter_group": "definition",
+                "color": "#b0414f"
+            },
+            {
+                "prefix": "exm",
+                "name": "Example",
+                "numbered": false,
+                "color": "#3b7a4c"
+            },
+            {
+                "prefix": "exr",
+                "name": "Exercise",
+                "numbered": false,
+                "color": "#a8670c"
+            }
+        ],
+        "small_envs": [
+            "remark",
+            "proof",
+            "solution",
+            "claim",
+            "proofofclaim",
+            "algorithm",
+            "idea",
+            "warning",
+            "check"
+        ]
+    },
+    "chapters": [
+        "src/ch00-demo"
+    ],
+    "macros": "latex/macros.tex",
+    "templates": {
+        "html": "templates/html/template.html",
+        "latex": "templates/latex/template.tex"
+    },
+    "styles": {
+        "html": "templates/html/styles.css",
+        "latex": "latex/latex-template.sty"
+    },
+    "deploy-dir": "site",
+    "deploy-repo": "",
+    "deploy-domain": "",
+    "deploy-push-url": "",
+    "repo-url": "",
+    "issues-url": "",
+    "redirects": {}
+}

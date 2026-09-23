@@ -1,0 +1,26 @@
+# Build output
+_build/
+
+# Deploy target: clone of public repo (HTML, PDFs, book only)
+site/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# macOS
+.DS_Store
+
+# IDE and Editor files
+.vscode/
+# Old GitHub Pages output
+docs/
+
+# LaTeX intermediates (e.g. from compiling templates/latex/template.tex by hand)
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+templates/latex/*.pdf

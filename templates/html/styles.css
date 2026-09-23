@@ -1,0 +1,2655 @@
+/* ==========================================================================
+   Book stylesheet
+   One serif family (STIX Two Text, matching MathJax), a narrow reading column,
+   and color tokens with light and dark values.
+   ========================================================================== */
+
+/* ==========================================================================
+   Fonts: STIX Two Text, served with the site (fonts/, SIL Open Font License, see
+   fonts/OFL.txt). Latin, Latin Extended and Greek subsets; browsers fetch only the
+   subsets and weights a page uses.
+   ========================================================================== */
+
+@font-face {
+  font-family: 'STIX Two Text';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/stix-two-text-greek-400-italic.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+
+@font-face {
+  font-family: 'STIX Two Text';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/stix-two-text-latin-ext-400-italic.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'STIX Two Text';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/stix-two-text-latin-400-italic.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'STIX Two Text';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/stix-two-text-greek-700-italic.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+
+@font-face {
+  font-family: 'STIX Two Text';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/stix-two-text-latin-ext-700-italic.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'STIX Two Text';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/stix-two-text-latin-700-italic.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'STIX Two Text';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/stix-two-text-greek-400-normal.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+
+@font-face {
+  font-family: 'STIX Two Text';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/stix-two-text-latin-ext-400-normal.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'STIX Two Text';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/stix-two-text-latin-400-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'STIX Two Text';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('fonts/stix-two-text-greek-600-normal.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+
+@font-face {
+  font-family: 'STIX Two Text';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('fonts/stix-two-text-latin-ext-600-normal.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'STIX Two Text';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('fonts/stix-two-text-latin-600-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'STIX Two Text';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/stix-two-text-greek-700-normal.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+
+@font-face {
+  font-family: 'STIX Two Text';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/stix-two-text-latin-ext-700-normal.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'STIX Two Text';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/stix-two-text-latin-700-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ==========================================================================
+   Tokens
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* Color */
+  --paper: #ffffff;
+  --ink: #26282d;
+  --ink-strong: #121418;
+  --muted: #5f6570;
+  --faint: #8a909a;
+  --rule: #e1e4e8;
+  --rule-strong: #c9ced5;
+  --subtle: #f6f7f9;
+  --accent: #1f5bb8;
+  --accent-soft: #e8effa;
+  --danger: #b42318;
+  --shadow: 0 6px 24px rgba(20, 24, 32, 0.12);
+  --hover-wash: #eaf1fb;          /* backgrounds of hovered rows and buttons */
+  --hover-border: #9db8e3;
+  --hover-shadow: rgba(31, 91, 184, 0.16);
+  --env-tint: 6%;      /* share of an environment's color in its background */
+  --env-rule-mix: 0%;  /* share of paper mixed into its rule (lightens it in dark mode) */
+
+  /* Type */
+  --font-body: 'STIX Two Text', 'STIX Two', 'Times New Roman', serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --text-size: 20px;
+  --line-height: 1.7;
+
+  /* Layout */
+  --content-width: 39rem;   /* about 72-75 characters per line at 20px */
+  --sidebar-width: 16rem;
+  --toc-width: 15rem;
+}
+
+/* Dark theme: data-theme is set before first paint from the saved choice or the system
+   setting (template.html), and switched by the toolbar button (main.js) */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #16181c;
+  --ink: #d8dbe0;
+  --ink-strong: #f1f2f4;
+  --muted: #a1a7b1;
+  --faint: #7d838d;
+  --rule: #2b2f36;
+  --rule-strong: #3a3f47;
+  --subtle: #1d2025;
+  --accent: #83adf0;
+  --accent-soft: #1f2a3b;
+  --danger: #f08c82;
+  --shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+  --hover-wash: #202b3c;
+  --hover-border: #4d6a94;
+  --hover-shadow: rgba(0, 0, 0, 0.5);
+  --env-tint: 13%;
+  --env-rule-mix: 35%;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--text-size);
+  line-height: var(--line-height);
+  font-kerning: normal;
+  font-variant-numeric: lining-nums proportional-nums;
+  text-rendering: optimizeLegibility;
+}
+
+/* A little air between letters and words in the text column; formulas keep their own spacing */
+.content {
+  letter-spacing: 0.012em;
+  word-spacing: 0.05em;
+}
+
+.content mjx-container {
+  letter-spacing: normal;
+  word-spacing: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 2000;
+  padding: 0.4rem 0.8rem;
+  background: var(--paper);
+  border: 1px solid var(--rule-strong);
+  border-radius: 4px;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--accent-soft);
+}
+
+/* Formulas highlight with the text around them, and copy as their LaTeX source (main.js) */
+.content mjx-container,
+.content mjx-container * {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.content mjx-container ::selection,
+.content mjx-container::selection {
+  background: var(--accent-soft);
+}
+
+/* ==========================================================================
+   Headings
+   ========================================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--ink-strong);
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 1.8em 0 0.5em;
+  text-wrap: balance;
+  font-variant-numeric: lining-nums;
+}
+
+h2 {
+  font-size: 1.45rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
+h4 {
+  font-size: 1.05rem;
+}
+
+.header-section-number {
+  color: var(--faint);
+  font-weight: 400;
+  margin-right: 0.25em;
+}
+
+/* Page title */
+.quarto-title-block {
+  margin: 0.5rem 0 2.25rem;
+}
+
+.quarto-title h1.title {
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.chapter-number {
+  color: var(--faint);
+  font-weight: 400;
+}
+
+.chapter-title {
+  color: var(--ink-strong);
+}
+
+/* Breadcrumbs */
+.quarto-title-breadcrumbs {
+  margin-bottom: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "›";
+  padding: 0 0.45rem;
+  color: var(--faint);
+}
+
+.breadcrumb-item a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   Text
+   ========================================================================== */
+
+p {
+  margin: 0 0 1em;
+  hyphens: manual;
+}
+
+strong,
+b {
+  font-weight: 700;
+  color: var(--ink-strong);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+a:hover {
+  text-decoration-color: currentColor;
+}
+
+/* Cross-references are frequent in proofs: no underline until hovered */
+a.xref {
+  text-decoration: none;
+}
+
+
+
+ul,
+ol {
+  margin: 0.5em 0 1.1em;
+  padding-left: 1.6em;
+}
+
+li {
+  margin-bottom: 0.4em;
+}
+
+li > ul,
+li > ol {
+  margin: 0.4em 0;
+}
+
+ul ul {
+  list-style-type: circle;
+}
+
+ol ol {
+  list-style-type: lower-alpha;
+}
+
+ol ol ol {
+  list-style-type: lower-roman;
+}
+
+li::marker {
+  color: var(--muted);
+}
+
+blockquote {
+  margin: 1.5em 0;
+  padding: 0.25em 1.25em;
+  border-left: 3px solid var(--rule-strong);
+  color: var(--muted);
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 2em 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* --- Labeled lists: (VS1), (LT2), ... (filters/enumerate.lua) --- */
+.labeled-list > ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.labeled-list > ul > li {
+  position: relative;
+  /* the label's width in characters (set per list by the filter) plus a small gap */
+  padding-left: calc(var(--label-chars, 4) * 0.52em + 0.5em);
+}
+
+.labeled-list .item-label {
+  position: absolute;
+  left: 0;
+  font-weight: 600;
+  color: var(--ink-strong);
+  font-variant-numeric: lining-nums;
+}
+
+/* --- TikZ figures compiled to SVG (filters/tikz.lua) --- */
+.tikz-figure {
+  margin: 1.25em 0;
+  text-align: center;
+}
+
+/* Black-on-transparent drawings: invert lightness, keep hues */
+[data-theme="dark"] .tikz-figure img.tikz {
+  filter: invert(0.88) hue-rotate(180deg);
+}
+
+/* ==========================================================================
+   Mathematics
+   ========================================================================== */
+
+mjx-container {
+  font-size: 100% !important;
+}
+
+mjx-container[display="true"] {
+  --surface: var(--paper);
+  display: block;
+  margin: 0.9em 0 !important;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  /* Shadows at an edge where the equation continues; the covers scroll with the content
+     and hide each shadow once that edge is reached */
+  background:
+    linear-gradient(to right, var(--surface) 40%, transparent) left / 2.5rem 100% no-repeat local,
+    linear-gradient(to left, var(--surface) 40%, transparent) right / 2.5rem 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, color-mix(in srgb, var(--ink) 22%, transparent), transparent) left / 0.8rem 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, color-mix(in srgb, var(--ink) 22%, transparent), transparent) right / 0.8rem 100% no-repeat scroll;
+}
+
+/* Inline formulas wider than the column (marked by main.js) scroll sideways */
+mjx-container.wide-inline {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  vertical-align: bottom;
+  scrollbar-width: thin;
+}
+
+.env mjx-container[display="true"] {
+  --surface: color-mix(in srgb, var(--env-color) var(--env-mix), var(--paper));
+}
+
+/* Numbered equations (theorems.lua): equation centered, number at the right */
+div.equation {
+  margin: 0.9em 0 !important;
+}
+
+div.equation mjx-container[display="true"] {
+  margin: 0 !important;
+}
+
+/* ==========================================================================
+   Theorem-like environments
+   Each box gets --env-color from the config; rule and tint are derived.
+   ========================================================================== */
+
+/* Registered so the tint can transition on hover (and equations inside follow it) */
+@property --env-mix {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 6%;
+}
+
+.env {
+  --env-color: var(--muted);
+  --env-mix: var(--env-tint);
+  margin: 1.5em 0;
+  padding: 0.85em 1.15em 0.85em;
+  border-left: 3px solid var(--env-color);
+  border-left: 3px solid color-mix(in srgb, var(--env-color), var(--paper) var(--env-rule-mix));
+  border-radius: 0 4px 4px 0;
+  background-color: var(--subtle);
+  background-color: color-mix(in srgb, var(--env-color) var(--env-mix), var(--paper));
+}
+
+.env > :last-child,
+.env p:last-child {
+  margin-bottom: 0;
+}
+
+.theorem-title {
+  display: block;
+  margin-bottom: 0.35em;
+  color: var(--ink-strong);
+  font-variant-numeric: lining-nums;
+}
+
+.theorem-title strong {
+  color: color-mix(in srgb, var(--env-color), var(--ink-strong) 35%);
+}
+
+.env li {
+  margin-bottom: 0.3em;
+}
+
+.env .theorem-title + ul,
+.env .theorem-title + ol {
+  margin-top: 0;
+}
+
+/* Proof, remark, solution, claim: text with a quiet rule */
+.small-env {
+  margin: 1.25em 0;
+  padding: 0.1em 0 0.1em 1.15em;
+  border-left: 1px solid var(--rule-strong);
+}
+
+.small-env > :last-child,
+.small-env p:last-child {
+  margin-bottom: 0;
+}
+
+.small-env > p:first-child > em:first-child {
+  color: var(--ink-strong);
+}
+
+/* Idea before a proof: a quieter voice */
+.idea.small-env {
+  color: var(--muted);
+  font-style: normal;
+}
+
+/* Warning: a known misconception, named before the reader makes it */
+.warning.small-env {
+  border-left: 2px solid var(--danger);
+}
+
+.warning.small-env > p:first-child > em:first-child {
+  color: var(--danger);
+}
+
+/* Quick check: a question; its folded answer follows as a separate block */
+.check.small-env {
+  border-left: 2px solid var(--accent);
+  background: var(--subtle);
+  padding: 0.6em 1em 0.6em 1.15em;
+  border-radius: 0 6px 6px 0;
+}
+
+.check.small-env > p:first-child > em:first-child {
+  color: var(--accent);
+}
+
+/* Part headings in the sidebar */
+.nav-part {
+  margin: 1.6rem 0 0.35rem;
+  padding: 0.7rem 0.5rem 0;
+  border-top: 1px solid var(--rule);
+  color: var(--faint);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  list-style: none;
+}
+
+.nav-part:first-of-type {
+  margin-top: 1rem;
+}
+
+/* --- Reading / Exercises tabs on section pages (main.js) --- */
+.section-tabs {
+  display: flex;
+  gap: 1.4rem;
+  margin: 0.2rem 0 1.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.section-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 -1px;
+  padding: 0.5rem 0.1rem 0.6rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.section-tab .bi {
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.section-tab:hover {
+  color: var(--ink-strong);
+  border-bottom-color: var(--rule-strong);
+}
+
+.section-tab[aria-selected="true"] {
+  color: var(--ink-strong);
+  border-bottom-color: var(--accent);
+}
+
+.section-tab:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.tab-count {
+  min-width: 1.4em;
+  padding: 0.05em 0.45em;
+  border-radius: 999px;
+  background: var(--subtle);
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-variant-numeric: lining-nums tabular-nums;
+  text-align: center;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.section-tab[aria-selected="true"] .tab-count {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.tab-panel[hidden] {
+  display: none;
+}
+
+/* The invitation at the end of the text */
+.tab-continue {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 2.5rem 0 0.5rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--paper);
+  color: var(--ink-strong);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.tab-continue .bi {
+  color: var(--faint);
+  transition: transform 0.2s ease, color 0.15s ease;
+}
+
+.tab-continue:hover,
+.tab-continue:focus-visible {
+  border-color: var(--hover-border);
+  background: var(--hover-wash);
+  color: var(--accent);
+}
+
+.tab-continue:hover .bi,
+.tab-continue:focus-visible .bi {
+  color: var(--accent);
+  transform: translateX(3px);
+}
+
+.toc-item.toc-other-tab a {
+  color: var(--faint);
+}
+
+@media print {
+  .section-tabs,
+  .tab-continue {
+    display: none !important;
+  }
+
+  .tab-panel[hidden] {
+    display: block !important;
+  }
+}
+
+/* --- Foldable proofs and solutions (main.js) ---
+   The label ("Proof." / "Solution.") is the button, with a chevron after it:
+   v while folded, ^ while open. */
+.fold-toggle {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.28em;
+  margin: 0 0.1em 0 -0.2em;
+  padding: 0 0.2em;
+  border: 0;
+  border-radius: 5px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.fold-label em {
+  color: var(--ink-strong);
+  transition: color 0.15s ease;
+}
+
+.fold-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  width: 1.15em;
+  height: 1.15em;
+  border-radius: 50%;
+  color: var(--faint);
+  transform: rotate(180deg);
+  transition: transform 0.22s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+.fold-chevron svg {
+  width: 0.72em;
+  height: 0.72em;
+}
+
+.is-folded .fold-chevron {
+  transform: rotate(0deg);
+}
+
+.fold-toggle:hover .fold-label em,
+.fold-toggle:focus-visible .fold-label em {
+  color: var(--accent);
+}
+
+.fold-toggle:hover .fold-chevron,
+.fold-toggle:focus-visible .fold-chevron {
+  color: var(--accent);
+  background: var(--hover-wash);
+}
+
+.fold-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Folded: only the label and its chevron remain */
+.foldable.is-folded > :not(.fold-head),
+.foldable.is-folded .fold-rest {
+  display: none;
+}
+
+.foldable.is-folded {
+  padding-top: 0.05em;
+  padding-bottom: 0.05em;
+}
+
+.foldable.is-folded > .fold-head {
+  margin: 0;
+}
+
+.proof.is-folded::after {
+  display: none;
+}
+
+@media print {
+  .fold-chevron {
+    display: none !important;
+  }
+
+  .foldable.is-folded > :not(.fold-head),
+  .foldable.is-folded .fold-rest {
+    display: revert;
+  }
+}
+
+/* A solution directly after its quick check sits close to it */
+.check.small-env + .solution.small-env {
+  margin-top: -0.4em;
+}
+
+/* End of proof */
+.proof::after {
+  content: "■";
+  display: block;
+  text-align: right;
+  font-size: 0.7em;
+  line-height: 1;
+  margin-top: 0.1em;
+  color: var(--muted);
+}
+}
+
+/* --- Sidebar links to the generated pages --- */
+.nav-extra a {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.nav-extra .bi {
+  color: var(--faint);
+  font-size: 0.9em;
+}
+
+.nav-extra.active a {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.nav-extra:last-of-type {
+  margin-bottom: 0.2rem;
+}
+
+/* --- List of results (build/extras.py) --- */
+.results-filters {
+  position: sticky;
+  top: 3.25rem;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1rem;
+  margin: 0 0 1.5rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper);
+  font-size: 0.85rem;
+}
+
+.results-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.results-filter input {
+  accent-color: var(--accent);
+}
+
+.results-count {
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.results-search {
+  flex: 1 1 12rem;
+  min-width: 10rem;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 5px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+}
+
+.results-search:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.results-chapter h2 {
+  margin-top: 2rem;
+}
+
+.results-section h3 {
+  margin: 1.4rem 0 0.4rem;
+  font-size: 1rem;
+}
+
+.results-section h3 a {
+  color: var(--ink-strong);
+  text-decoration: none;
+}
+
+.results-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.result {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.5rem;
+  margin: 0;
+  padding: 0.3rem 0 0.3rem 0.75rem;
+  border-left: 2px solid var(--env-color, var(--rule));
+  font-size: 0.95rem;
+}
+
+.result + .result {
+  margin-top: 0.15rem;
+}
+
+.result-name {
+  flex-shrink: 0;
+  font-weight: 600;
+}
+
+.result-title {
+  color: var(--ink);
+}
+
+.results-empty {
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* --- Dependency graph page --- */
+.wide-page {
+  --content-width: 60rem;
+}
+
+.graph-intro {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.graph-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.25rem;
+  margin: 1rem 0;
+  font-size: 0.85rem;
+}
+
+.graph-controls select {
+  margin-left: 0.35rem;
+  padding: 0.25rem 0.4rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 5px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+}
+
+.graph-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+}
+
+.graph-toggle input {
+  accent-color: var(--accent);
+}
+
+.graph-frame {
+  position: relative;
+}
+
+.dependency-graph {
+  width: 100%;
+  height: min(75vh, 48rem);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.dependency-graph.graph-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  padding: 2rem;
+  color: var(--danger);
+}
+
+.graph-preview {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: min(22rem, 45%);
+  max-height: calc(100% - 1.5rem);
+  overflow: auto;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--rule-strong);
+  border-left: 3px solid var(--env-color, var(--accent));
+  border-radius: 0 6px 6px 0;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  pointer-events: none;
+}
+
+.graph-preview-name {
+  color: var(--ink-strong);
+  font-weight: 700;
+}
+
+.graph-preview-title {
+  color: var(--ink);
+}
+
+.graph-preview-body {
+  margin-top: 0.4rem;
+  color: var(--ink);
+}
+
+.graph-preview-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Dependencies the transitive reduction dropped: real, but implied by a longer chain */
+.graph-preview-implied {
+  color: var(--faint);
+}
+
+.graph-preview-meta {
+  margin-top: 0.5rem;
+  color: var(--faint);
+  font-size: 0.75rem;
+}
+
+@media (max-width: 900px) {
+  .graph-preview {
+    display: none;
+  }
+
+  .results-filters {
+    top: 3rem;
+  }
+}
+
+/* ==========================================================================
+   Link anchors and link targets (main.js)
+   ========================================================================== */
+
+[id] {
+  scroll-margin-top: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  [id] {
+    scroll-margin-top: 4rem;  /* below the sticky top bar */
+  }
+}
+
+.anchor-link {
+  color: var(--faint);
+  font-weight: 400;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+h2:hover .anchor-link,
+h3:hover .anchor-link,
+.env:hover .anchor-link,
+.anchor-link:focus-visible {
+  opacity: 1;
+}
+
+.anchor-link:hover {
+  color: var(--accent);
+}
+
+.anchor-link[data-copied]::after {
+  content: "Link copied";
+  margin-left: 0.5em;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+@media (hover: none) {
+  .anchor-link {
+    display: none;
+  }
+}
+
+@keyframes target-flash {
+  from {
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  to {
+    box-shadow: 0 0 0 4px transparent;
+  }
+}
+
+.is-target {
+  animation: target-flash 1.8s ease-out;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   Code
+   ========================================================================== */
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+  padding: 0.1em 0.3em;
+  background: var(--subtle);
+  border-radius: 3px;
+}
+
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  margin: 1.25em 0;
+  padding: 0.9rem 1rem;
+  background: var(--subtle);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+pre code {
+  font-size: inherit;
+  padding: 0;
+  background: none;
+}
+
+div.sourceCode {
+  margin: 1.25em 0;
+  background: none;
+}
+
+/* Code highlighting colors for the dark theme */
+[data-theme="dark"] .content code span.kw,
+[data-theme="dark"] .content code span.cf,
+[data-theme="dark"] .content code span.im { color: #8fb8ff; }
+[data-theme="dark"] .content code span.st,
+[data-theme="dark"] .content code span.ch,
+[data-theme="dark"] .content code span.vs,
+[data-theme="dark"] .content code span.sc { color: #a5d6a7; }
+[data-theme="dark"] .content code span.dv,
+[data-theme="dark"] .content code span.fl,
+[data-theme="dark"] .content code span.bn,
+[data-theme="dark"] .content code span.cn { color: #f2c38b; }
+[data-theme="dark"] .content code span.co,
+[data-theme="dark"] .content code span.do,
+[data-theme="dark"] .content code span.an,
+[data-theme="dark"] .content code span.cv { color: #8b929c; }
+[data-theme="dark"] .content code span.fu,
+[data-theme="dark"] .content code span.bu { color: #d7b8f3; }
+[data-theme="dark"] .content code span.op,
+[data-theme="dark"] .content code span.va,
+[data-theme="dark"] .content code span.ot,
+[data-theme="dark"] .content code span.dt { color: #d8dbe0; }
+
+/* ==========================================================================
+   Tables
+   ========================================================================== */
+
+table {
+  width: 100%;
+  margin: 1.5em 0;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+th,
+td {
+  padding: 0.5em 0.9em;
+  text-align: left;
+  border-bottom: 1px solid var(--rule);
+}
+
+th {
+  font-weight: 600;
+  border-bottom: 2px solid var(--rule-strong);
+}
+
+/* ==========================================================================
+   Layout: sidebar | content | table of contents
+   ========================================================================== */
+
+#quarto-container {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr) var(--toc-width);
+  max-width: 92rem;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+#quarto-content {
+  min-width: 0;
+  padding: 2.5rem 3rem 3rem;
+}
+
+.content,
+.page-navigation {
+  max-width: var(--content-width);
+  margin-inline: auto;
+}
+
+/* --- Left sidebar --- */
+#quarto-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 1.5rem 1rem 2rem 1.5rem;
+  border-right: 1px solid var(--rule);
+  background: var(--paper);
+  font-size: 0.9rem;
+  line-height: 1.35;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule-strong) transparent;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.sidebar-title {
+  color: var(--ink-strong);
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.sidebar-title:hover {
+  color: var(--accent);
+}
+
+.sidebar-tools {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.sidebar-tools a {
+  color: var(--muted);
+  padding: 0.15rem 0.25rem;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.sidebar-tools a:hover {
+  color: var(--accent);
+}
+
+/* Search */
+.sidebar-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.sidebar-search .bi-search {
+  position: absolute;
+  left: 0.6rem;
+  color: var(--faint);
+  font-size: 0.8rem;
+  pointer-events: none;
+}
+
+.sidebar-search input {
+  width: 100%;
+  padding: 0.4rem 2rem 0.4rem 1.9rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 5px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.85rem;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.sidebar-search input::placeholder {
+  color: var(--faint);
+}
+
+.sidebar-search input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.search-shortcut {
+  position: absolute;
+  right: 0.5rem;
+  padding: 0 0.35rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 3px;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  line-height: 1.4;
+  pointer-events: none;
+}
+
+.sidebar-search input:focus ~ .search-shortcut {
+  display: none;
+}
+
+.search-results {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: var(--paper);
+  border: 1px solid var(--rule-strong);
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+}
+
+.search-results.active {
+  display: block;
+}
+
+.search-result-item {
+  display: block;
+  padding: 0.55rem 0.8rem;
+  border-bottom: 1px solid var(--rule);
+  color: inherit;
+  text-decoration: none;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover,
+.search-result-item.selected {
+  background: var(--subtle);
+}
+
+.search-result-item.selected {
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.search-result-title {
+  display: block;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+.search-result-page {
+  display: block;
+  color: var(--faint);
+  font-size: 0.72rem;
+}
+
+.search-result-preview {
+  display: -webkit-box;
+  margin-top: 0.15rem;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.search-results mark {
+  padding: 0 0.05em;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+  color: inherit;
+}
+
+.search-no-results {
+  padding: 0.8rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* Book navigation */
+.sidebar-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-nav li {
+  margin: 0;
+}
+
+.sidebar-nav a {
+  display: block;
+  padding: 0.3rem 0.5rem;
+  border-radius: 5px;
+  color: var(--muted);
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.sidebar-nav a:hover {
+  color: var(--ink-strong);
+  background: var(--subtle);
+}
+
+.nav-home {
+  margin-bottom: 0.1rem;
+}
+
+/* One chapter and its sections form a block, with air between blocks */
+.nav-chapter {
+  margin-top: 0.85rem;
+}
+
+.nav-chapter + .nav-chapter {
+  margin-top: 0.5rem;
+}
+
+.nav-chapter-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.25rem;
+  color: var(--ink-strong);
+  font-weight: 600;
+}
+
+.nav-chapter-title-link {
+  flex: 1;
+  color: inherit !important;
+}
+
+.nav-chapter.active > .nav-chapter-header .nav-chapter-title-link {
+  color: var(--ink-strong) !important;
+}
+
+.nav-toggle {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  color: var(--faint);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.nav-toggle svg {
+  width: 10px;
+  height: 10px;
+}
+
+.nav-toggle.expanded {
+  transform: rotate(90deg);
+}
+
+.nav-toggle:hover {
+  color: var(--ink-strong);
+}
+
+.nav-sections {
+  max-height: 2000px;
+  margin: 0.15rem 0 0.2rem 0.85rem;
+  padding-left: 0.4rem;
+  border-left: 1px solid var(--rule);
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.nav-sections.collapsed {
+  max-height: 0;
+}
+
+.nav-section-item a {
+  display: flex;
+  gap: 0.5em;
+  padding: 0.26rem 0.5rem;
+}
+
+.nav-section-item + .nav-section-item {
+  margin-top: 0.05rem;
+}
+
+.nav-section-number {
+  flex-shrink: 0;
+  min-width: 1.7em;
+  color: var(--faint);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.nav-section-item.active a {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.nav-section-item.active .nav-section-number {
+  color: inherit;
+}
+
+/* --- Right sidebar: on this page --- */
+#quarto-margin-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 2.75rem 1.25rem 2rem;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.toc h2,
+.other-formats h3 {
+  margin: 0 0 0.6rem;
+  color: var(--ink-strong);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.toc ul,
+.other-formats ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.toc li,
+.other-formats li {
+  margin: 0;
+}
+
+.toc a {
+  display: block;
+  padding: 0.25rem 0 0.25rem 0.75rem;
+  border-left: 2px solid var(--rule);
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.toc a:hover {
+  color: var(--ink-strong);
+}
+
+.toc a.active {
+  border-left-color: var(--accent);
+  color: var(--accent);
+}
+
+.toc .toc-indent a {
+  padding-left: 1.5rem;
+}
+
+.other-formats {
+  margin-top: 2rem;
+}
+
+.other-formats a {
+  display: inline-block;
+  padding: 0.15rem 0;
+  color: var(--muted);
+}
+
+.other-formats a:hover {
+  color: var(--accent);
+}
+
+/* --- Previous / next --- */
+.page-navigation {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 3.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+.nav-page {
+  display: flex;
+  min-width: 0;
+}
+
+/* Two matching cards. Hover changes only the border, the title color and the arrow. */
+.pagination-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  color: var(--ink);
+  text-decoration: none;
+  line-height: 1.3;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.nav-page-next .pagination-link {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.nav-page-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.nav-page-label {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.nav-page-text {
+  overflow: hidden;
+  color: var(--ink-strong);
+  font-size: 0.95rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.pagination-link .bi {
+  flex-shrink: 0;
+  color: var(--faint);
+  font-size: 1.25rem;
+  transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1), color 0.2s ease;
+}
+
+@media (any-hover: hover) {
+  .pagination-link:hover {
+    border-color: var(--rule-strong);
+  }
+
+  .pagination-link:hover .nav-page-text,
+  .pagination-link:hover .bi {
+    color: var(--accent);
+  }
+
+  .nav-page-previous .pagination-link:hover .bi {
+    transform: translateX(-3px);
+  }
+
+  .nav-page-next .pagination-link:hover .bi {
+    transform: translateX(3px);
+  }
+}
+
+.page-feedback {
+  max-width: var(--content-width);
+  margin: 1.5rem auto 0;
+  color: var(--faint);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.page-feedback a {
+  color: var(--muted);
+}
+
+.pagination-link:active {
+  background-color: var(--subtle);
+}
+
+.sidebar-overlay {
+  display: none;
+}
+
+/* --- Toolbar (top of the text column) --- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: -2.5rem -3rem 1.25rem;
+  padding: 0.5rem 1.5rem;
+  background: var(--paper);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.topbar-title {
+  overflow: hidden;
+  color: var(--ink-strong);
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+/* The book title appears in the toolbar when the sidebar (which shows it) is not visible */
+[data-sidebar="collapsed"] .topbar-title {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 0.25rem;
+  margin-left: auto;
+}
+
+/* --- Icon buttons --- */
+.icon-button {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.icon-button:hover {
+  background: var(--subtle);
+  border-color: var(--rule);
+  color: var(--ink-strong);
+}
+
+.icon-button:active {
+  transform: scale(0.92);
+  background: var(--accent-soft);
+}
+
+.icon-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* A toggle whose pane is folded away shows that state (not the phone drawer, which is
+   normally closed) */
+[data-toc="collapsed"] .toc-toggle {
+  color: var(--accent);
+}
+
+@media (min-width: 901px) {
+  [data-sidebar="collapsed"] .sidebar-toggle {
+    color: var(--accent);
+  }
+}
+
+/* Contents button: a pane icon on wide screens, a menu icon where it opens a drawer */
+.sidebar-icon-menu {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .sidebar-icon-pane {
+    display: none;
+  }
+
+  .sidebar-icon-menu {
+    display: inline;
+    font-size: 1.35em;
+  }
+}
+
+/* Theme icon: moon in light mode (switch to dark), sun in dark mode */
+.theme-toggle i {
+  position: absolute;
+  transition: opacity 0.2s ease, transform 0.3s ease;
+}
+
+.theme-icon-sun,
+[data-theme="dark"] .theme-icon-moon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.6);
+}
+
+[data-theme="dark"] .theme-icon-sun {
+  opacity: 1;
+  transform: none;
+}
+
+/* Tooltips from data-tooltip, for mouse and keyboard users */
+@media (any-hover: hover) {
+  .icon-button[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: calc(100% + 6px);
+    z-index: 950;
+    padding: 0.25rem 0.5rem;
+    border-radius: 5px;
+    background: var(--ink-strong);
+    color: var(--paper);
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    line-height: 1.3;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-2px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+
+  .sidebar-toggle[data-tooltip]::after {
+    left: 0;
+  }
+
+  .topbar-actions .icon-button[data-tooltip]::after {
+    right: 0;
+  }
+
+  .icon-button:hover::after,
+  .icon-button:focus-visible::after {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0.35s;
+  }
+}
+
+/* Touch screens: larger targets */
+@media (pointer: coarse) {
+  .icon-button {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1.25rem;
+  }
+}
+
+/* Press feedback on the other buttons and button-like links */
+.code-cell-toolbar button,
+.sidebar-nav a,
+.search-result-item {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.code-cell-toolbar button:active {
+  transform: scale(0.97);
+}
+
+.code-cell-toolbar button {
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.sidebar-nav a:active {
+  background: var(--accent-soft);
+}
+
+/* --- Collapsible panes (wide screens) --- */
+#quarto-container {
+  transition: grid-template-columns 0.25s ease;
+}
+
+.content,
+.page-navigation {
+  transition: max-width 0.25s ease;
+}
+
+#quarto-sidebar,
+#quarto-margin-sidebar {
+  transition: opacity 0.15s ease, visibility 0.15s;
+}
+
+[data-sidebar="collapsed"] #quarto-sidebar,
+[data-toc="collapsed"] #quarto-margin-sidebar {
+  overflow: hidden;
+  padding-left: 0;
+  padding-right: 0;
+  border-right-color: transparent;
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* With panes folded away, the text column widens */
+[data-sidebar="collapsed"],
+[data-toc="collapsed"] {
+  --content-width: 46rem;
+}
+
+[data-sidebar="collapsed"][data-toc="collapsed"] {
+  --content-width: 54rem;
+}
+
+@media (min-width: 1201px) {
+  [data-sidebar="collapsed"] #quarto-container {
+    grid-template-columns: 0 minmax(0, 1fr) var(--toc-width);
+  }
+
+  [data-toc="collapsed"] #quarto-container {
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr) 0;
+  }
+
+  [data-sidebar="collapsed"][data-toc="collapsed"] #quarto-container {
+    grid-template-columns: 0 minmax(0, 1fr) 0;
+  }
+}
+
+@media (max-width: 1200px) {
+  #quarto-container {
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  }
+
+  #quarto-margin-sidebar,
+  .toc-toggle {
+    display: none;
+  }
+
+  [data-sidebar="collapsed"] #quarto-container {
+    grid-template-columns: 0 minmax(0, 1fr);
+  }
+
+  /* Only the left pane can be folded here; the right pane's setting does not apply */
+  [data-toc="collapsed"]:not([data-sidebar="collapsed"]) {
+    --content-width: 39rem;
+  }
+
+  [data-sidebar="collapsed"][data-toc="collapsed"] {
+    --content-width: 46rem;
+  }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --text-size: 18px;
+  }
+
+  #quarto-container {
+    display: block;
+  }
+
+  #quarto-content {
+    padding: 1.25rem 1.1rem 2.5rem;
+  }
+
+  .topbar {
+    margin: -1.25rem -1.1rem 1rem;
+    padding: 0.35rem 0.5rem;
+    border-bottom-color: var(--rule);
+  }
+
+  .topbar-title,
+  [data-sidebar="collapsed"] .topbar-title {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* The drawer ignores the wide-screen folding */
+  [data-sidebar="collapsed"] #quarto-sidebar {
+    overflow-y: auto;
+    padding: 1.25rem 1rem 2rem 1.25rem;
+    border-right-color: var(--rule);
+    opacity: 1;
+  }
+
+  [data-sidebar="collapsed"] #quarto-sidebar:not(.show) {
+    visibility: hidden;
+  }
+
+  [data-sidebar="collapsed"] #quarto-sidebar.show {
+    visibility: visible;
+  }
+
+  :root[data-sidebar],
+  :root[data-toc] {
+    --content-width: 39rem;
+  }
+
+  #quarto-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1100;
+    width: min(20rem, 86vw);
+    height: 100%;
+    padding: 1.25rem 1rem 2rem 1.25rem;
+    border-right: 1px solid var(--rule);
+    box-shadow: var(--shadow);
+    font-size: 0.95rem;
+    transform: translateX(-100%);
+    visibility: hidden;
+    transition: transform 0.22s ease, visibility 0.22s;
+  }
+
+  #quarto-sidebar.show {
+    transform: none;
+    visibility: visible;
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1050;
+    display: block;
+    background: rgba(10, 12, 16, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease;
+  }
+
+  .sidebar-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  body.drawer-open {
+    overflow: hidden;
+  }
+
+  .search-shortcut {
+    display: none;
+  }
+
+  .quarto-title h1.title {
+    font-size: 1.65rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  .env {
+    margin-inline: -0.35rem;
+    padding: 0.75em 0.85em;
+  }
+
+  .page-navigation {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  /* Only whitespace when there is no previous or next page */
+  .nav-page:not(:has(a)) {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Tooltips (Tippy.js): hover previews of referenced results
+   ========================================================================== */
+
+.tippy-box[data-theme~='quarto'] {
+  max-width: 34rem !important;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.tippy-box[data-theme~='quarto'] > .tippy-content {
+  padding: 0.75rem 1rem;
+}
+
+.tippy-box[data-theme~='quarto'] > .tippy-arrow::before {
+  color: var(--paper);
+}
+
+.tooltip-title {
+  margin-bottom: 0.4rem;
+  color: var(--ink-strong);
+  font-weight: 700;
+  font-variant-numeric: lining-nums;
+}
+
+.tooltip-go {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.6rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.tooltip-content p {
+  margin: 0 0 0.5em;
+}
+
+.tooltip-content p:last-child {
+  margin-bottom: 0;
+}
+
+.tooltip-content mjx-container[display="true"] {
+  margin: 0.5em 0 !important;
+}
+
+.tooltip-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+}
+
+.tooltip-loading .spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--rule-strong);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.tooltip-error {
+  color: var(--danger);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   Hover effects
+   Quiet and quick: one easing curve, 180-250ms, only on devices with a pointer that
+   hovers. (Reduced-motion preferences switch transitions off; see Base.)
+   ========================================================================== */
+
+:root {
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+a {
+  transition: color 0.18s var(--ease-out), text-decoration-color 0.18s var(--ease-out);
+}
+
+/* Cross-references: an underline drawn from the left (per line when a link wraps) */
+a.xref {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-size 0.25s var(--ease-out), background-color 0.2s var(--ease-out), color 0.18s var(--ease-out);
+}
+
+.env,
+.code-cell,
+.sidebar-nav a,
+.toc a,
+.search-result-item,
+.icon-button i,
+.nav-section-title,
+.nav-chapter-title {
+  transition-timing-function: var(--ease-out);
+}
+
+.env {
+  transition: --env-mix 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+}
+
+.code-cell {
+  transition: border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+}
+
+.sidebar-nav a {
+  transition: background-color 0.18s var(--ease-out), color 0.18s var(--ease-out);
+}
+
+.nav-section-title,
+.nav-chapter-title {
+  display: inline-block;
+  transition: transform 0.2s var(--ease-out);
+}
+
+.toc a {
+  transition: border-color 0.2s var(--ease-out), color 0.18s var(--ease-out);
+}
+
+.search-result-item {
+  transition: background-color 0.15s var(--ease-out), box-shadow 0.15s var(--ease-out);
+}
+
+.icon-button i {
+  transition: transform 0.25s var(--ease-out), opacity 0.2s ease, color 0.18s var(--ease-out);
+}
+
+/* any-hover: on whenever a mouse or trackpad is present (some setups report the primary
+   pointer differently). Colors are plain tokens, so older browsers show them too. */
+@media (any-hover: hover) {
+  /* References: underline drawn from the left over a faint highlight */
+  a.xref:hover {
+    background-size: 100% 1.5px;
+    background-color: var(--hover-wash);
+    border-radius: 2px;
+  }
+
+  /* The block under the pointer: stronger tint, a soft shadow, a thicker edge */
+  .env:hover {
+    --env-mix: calc(var(--env-tint) + 5%);
+    box-shadow: inset 2px 0 0 var(--env-color), 0 8px 22px -10px var(--hover-shadow);
+  }
+
+  .code-cell:hover {
+    border-color: var(--hover-border);
+    box-shadow: 0 8px 22px -12px var(--hover-shadow);
+  }
+
+  .code-cell:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  /* Sidebar: an accent wash, and the title slides toward the text */
+  .sidebar-nav a:hover {
+    background: var(--hover-wash);
+    color: var(--accent);
+  }
+
+  .sidebar-nav a:hover .nav-section-number {
+    color: inherit;
+  }
+
+  .sidebar-nav a:hover .nav-section-title,
+  .nav-chapter-title-link:hover .nav-chapter-title {
+    transform: translateX(3px);
+  }
+
+  .nav-chapter-header .nav-chapter-title-link:hover {
+    background: transparent;
+  }
+
+  /* On this page: the rail lights up beside the link */
+  .toc a:hover {
+    color: var(--accent);
+  }
+
+  .toc a:hover:not(.active) {
+    border-left-color: var(--hover-border);
+  }
+
+  .other-formats a:hover,
+  .breadcrumb-item a:hover {
+    color: var(--accent);
+  }
+
+  /* Toolbar and search results */
+  .icon-button:hover {
+    background: var(--hover-wash);
+    border-color: var(--hover-border);
+    color: var(--accent);
+  }
+
+  .sidebar-toggle:hover i,
+  .toc-toggle:hover i {
+    transform: scale(1.1);
+  }
+
+  [data-theme="light"] .theme-toggle:hover .theme-icon-moon {
+    transform: rotate(-20deg) scale(1.08);
+  }
+
+  [data-theme="dark"] .theme-toggle:hover .theme-icon-sun {
+    transform: rotate(60deg) scale(1.08);
+  }
+
+  .search-result-item:hover {
+    background: var(--hover-wash);
+  }
+
+  .sidebar-tools a {
+    transition: color 0.18s var(--ease-out);
+  }
+}
+
+/* ==========================================================================
+   404 page (build/manifest.py)
+   ========================================================================== */
+
+.not-found {
+  max-width: var(--content-width);
+  margin: 12vh auto;
+  padding: 0 1.25rem;
+}
+
+.not-found h1 {
+  margin-top: 0.25em;
+  font-size: 2.1rem;
+}
+
+.not-found-book a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   Print
+   ========================================================================== */
+
+@media print {
+  :root {
+    --text-size: 11pt;
+  }
+
+  .topbar,
+  #quarto-sidebar,
+  #quarto-margin-sidebar,
+  .page-navigation,
+  .skip-link {
+    display: none !important;
+  }
+
+  #quarto-container {
+    display: block;
+  }
+
+  #quarto-content {
+    padding: 0;
+  }
+
+  .env,
+  .small-env {
+    break-inside: avoid;
+  }
+}
+
+/* ==========================================================================
+   Interactive components (filters/components.lua, templates/html/components/)
+   ========================================================================== */
+
+/* --- Runnable code cells --- */
+.code-cell {
+  margin: 1.5em 0;
+  border: 1px solid var(--rule-strong);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.code-cell div.sourceCode,
+.code-cell pre {
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  cursor: text;
+}
+
+.code-cell-editor {
+  display: block;
+  width: 100%;
+  min-height: 3em;
+  margin: 0;
+  padding: 0.9rem 1rem;
+  border: none;
+  outline: none;
+  resize: none;
+  overflow: hidden;
+  background: var(--subtle);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  tab-size: 4;
+}
+
+.code-cell-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.4em 0.6em;
+  border-top: 1px solid var(--rule);
+  background: var(--paper);
+  font-size: 0.8rem;
+}
+
+.code-cell-toolbar button {
+  padding: 0.2em 0.9em;
+  border: 1px solid var(--rule-strong);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.code-cell-toolbar button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.code-cell-run {
+  font-weight: 600;
+}
+
+.code-cell-run.running {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.code-cell-status {
+  color: var(--muted);
+}
+
+.code-cell-output {
+  padding: 0.5em 1em;
+  border-top: 1px solid var(--rule);
+}
+
+.code-cell-output pre {
+  margin: 0.25em 0;
+  padding: 0;
+  border: none;
+  background: none;
+  white-space: pre-wrap;
+}
+
+.code-cell-stderr,
+.code-cell-error {
+  color: var(--danger);
+}
+
+.code-cell-figure {
+  display: block;
+  max-width: 100%;
+  margin: 0.5em auto;
+  border-radius: 4px;
+}
+
+/* --- Function plots and widgets --- */
+.plot,
+.widget {
+  margin: 1.5em 0;
+}
+
+.plot-board,
+.widget-board {
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.plot-board {
+  max-width: 40rem;
+  aspect-ratio: 16 / 10;
+}
+
+.widget-board {
+  max-width: 26rem;
+  aspect-ratio: 1;
+}
+
+[data-theme="dark"] .plot-board .JXGtext,
+[data-theme="dark"] .plot-board svg,
+[data-theme="dark"] .widget-board .JXGtext,
+[data-theme="dark"] .widget-board svg {
+  filter: invert(0.88) hue-rotate(180deg);
+}
+
+.plot-board.plot-error {
+  aspect-ratio: auto;
+  padding: 0.75em;
+  color: var(--danger);
+}
+
+.plot-controls {
+  max-width: 40rem;
+  margin: 0.5em auto 0;
+}
+
+.plot-slider {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  font-size: 0.9rem;
+}
+
+.plot-slider-name {
+  min-width: 1.5em;
+  font-style: italic;
+}
+
+.plot-slider input {
+  flex: 1;
+  accent-color: var(--accent);
+}
+
+.plot-slider output {
+  min-width: 3em;
+  text-align: right;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.plot-caption {
+  max-width: 40rem;
+  margin: 0.5em auto 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.widget-readout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4em;
+  margin-top: 0.6em;
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+
+.widget-matrix {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+}
+
+.widget-matrix-name {
+  font-weight: 700;
+}
+
+/* Two-by-two array between upright brackets */
+.widget-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(1.6em, auto));
+  gap: 0.1em 0.55em;
+  padding: 0.15em 0.4em;
+  border-left: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  border-radius: 3px;
+  font-variant-numeric: lining-nums tabular-nums;
+  text-align: center;
+}
+
+.widget-value {
+  color: var(--muted);
+  font-variant-numeric: lining-nums tabular-nums;
+}

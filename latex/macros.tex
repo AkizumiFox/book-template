@@ -1,0 +1,216 @@
+% ======================================================================================
+% BOOK MACROS
+% ======================================================================================
+% This file is the book's own macro file: the PDF gets it by \input, and
+% build/macros.py parses the same file into the MathJax macro table the website
+% uses, so the two formats always agree. Add a macro here (\def, \newcommand,
+% \providecommand, \DeclareMathOperator) and both editions have it.
+%
+% WHAT IS IN HERE: only what any mathematics book wants -- delimiters, a handful
+% of common operators, the blackboard and calligraphic alphabets, bold Latin
+% letters for vectors and matrices, derivatives and limits, and the two-slot
+% bracket pattern \coord / \mtx.
+%
+% WHAT IS NOT: the subject-specific macros the linear algebra book accumulated
+% (its operators, bold Greek vectors, transpose and adjoint shorthands, Dirac
+% notation, the probability and distribution sets). Those sit unloaded in
+% latex/macros-linear-algebra.tex.example. Raid that file for what this book
+% needs and paste it in here; do not \input it wholesale, since a macro nobody
+% uses is a name this book cannot have.
+%
+% Two things to know before editing:
+%   - Several of these names belong to LaTeX in text mode (\b \c \d \i \j \l \o
+%     \t \u \v \H \L \O \P \S are accents or symbols). Redefining them is
+%     deliberate and long-standing; latex/preamble.tex restores \H after
+%     hyperref, which reclaims it. If a new macro shadows a text command the
+%     book actually uses, that is on you.
+%   - \providecommand here is a no-op in LaTeX when latex/latex-template.sty has
+%     already defined the name, but it is still what the website reads. Keep the
+%     two bodies saying the same thing.
+% ======================================================================================
+
+% ======================================================================================
+% NUMBER SETS
+% ======================================================================================
+% \mathbb (amssymb/msbm10), not bbm's \mathbb: bbm ships no Type 1 face in common TeX
+% installations, so pdflatex falls back to a bitmap font. That put Type 3 glyphs in every
+% PDF (blurry, unsearchable, uncopyable) and turned blackboard letters inside TikZ pictures
+% into masked rectangles in the SVGs.
+% \ensuremath so the macros work in text mode too (e.g. in an environment title).
+\def \nA {\ensuremath{\mathbb{A}}}
+\def \nB {\ensuremath{\mathbb{B}}}
+\def \nC {\ensuremath{\mathbb{C}}}
+\def \nD {\ensuremath{\mathbb{D}}}
+\def \nE {\ensuremath{\mathbb{E}}}
+\def \nF {\ensuremath{\mathbb{F}}}
+\def \nG {\ensuremath{\mathbb{G}}}
+\def \nH {\ensuremath{\mathbb{H}}}
+\def \nI {\ensuremath{\mathbb{I}}}
+\def \nJ {\ensuremath{\mathbb{J}}}
+\def \nK {\ensuremath{\mathbb{K}}}
+\def \nL {\ensuremath{\mathbb{L}}}
+\def \nM {\ensuremath{\mathbb{M}}}
+\def \nN {\ensuremath{\mathbb{N}}}
+\def \nO {\ensuremath{\mathbb{O}}}
+\def \nP {\ensuremath{\mathbb{P}}}
+\def \nQ {\ensuremath{\mathbb{Q}}}
+\def \nR {\ensuremath{\mathbb{R}}}
+\def \nS {\ensuremath{\mathbb{S}}}
+\def \nT {\ensuremath{\mathbb{T}}}
+\def \nU {\ensuremath{\mathbb{U}}}
+\def \nV {\ensuremath{\mathbb{V}}}
+\def \nW {\ensuremath{\mathbb{W}}}
+\def \nX {\ensuremath{\mathbb{X}}}
+\def \nY {\ensuremath{\mathbb{Y}}}
+\def \nZ {\ensuremath{\mathbb{Z}}}
+
+% ======================================================================================
+% CALLIGRAPHIC LETTERS
+% ======================================================================================
+% Families, collections, ordered bases, sigma-algebras: \sB, \sF, ...
+\def \sA {\mathcal{A}}
+\def \sB {\mathcal{B}}
+\def \sC {\mathcal{C}}
+\def \sD {\mathcal{D}}
+\def \sE {\mathcal{E}}
+\def \sF {\mathcal{F}}
+\def \sG {\mathcal{G}}
+\def \sH {\mathcal{H}}
+\def \sI {\mathcal{I}}
+\def \sJ {\mathcal{J}}
+\def \sK {\mathcal{K}}
+\def \sL {\mathcal{L}}
+\def \sM {\mathcal{M}}
+\def \sN {\mathcal{N}}
+\def \sO {\mathcal{O}}
+\def \sP {\mathcal{P}}
+\def \sQ {\mathcal{Q}}
+\def \sR {\mathcal{R}}
+\def \sS {\mathcal{S}}
+\def \sT {\mathcal{T}}
+\def \sU {\mathcal{U}}
+\def \sV {\mathcal{V}}
+\def \sW {\mathcal{W}}
+\def \sX {\mathcal{X}}
+\def \sY {\mathcal{Y}}
+\def \sZ {\mathcal{Z}}
+
+% ======================================================================================
+% BOLD LATIN LETTERS
+% ======================================================================================
+% The book-wide convention both existing books follow: bold lowercase for
+% vectors, bold uppercase for matrices, plain italic for maps and spaces.
+\def \a {\mathbf{a}}
+\def \b {\mathbf{b}}
+\def \c {\mathbf{c}}
+\def \d {\mathbf{d}}
+\def \e {\mathbf{e}}
+\def \f {\mathbf{f}}
+\def \g {\mathbf{g}}
+\def \h {\mathbf{h}}
+\def \i {\mathbf{i}}
+\def \j {\mathbf{j}}
+\def \k {\mathbf{k}}
+\def \l {\mathbf{l}}
+\def \m {\mathbf{m}}
+\def \n {\mathbf{n}}
+\def \o {\mathbf{o}}
+\def \p {\mathbf{p}}
+\def \q {\mathbf{q}}
+\def \r {\mathbf{r}}
+\def \s {\mathbf{s}}
+\def \t {\mathbf{t}}
+\def \u {\mathbf{u}}
+\def \v {\mathbf{v}}
+\def \w {\mathbf{w}}
+\def \x {\mathbf{x}}
+\def \y {\mathbf{y}}
+\def \z {\mathbf{z}}
+\def \A {\mathbf{A}}
+\def \B {\mathbf{B}}
+\def \C {\mathbf{C}}
+\def \D {\mathbf{D}}
+\def \E {\mathbf{E}}
+\def \F {\mathbf{F}}
+\def \G {\mathbf{G}}
+\def \H {\mathbf{H}}
+\def \I {\mathbf{I}}
+\def \J {\mathbf{J}}
+\def \K {\mathbf{K}}
+\def \L {\mathbf{L}}
+\def \M {\mathbf{M}}
+\def \N {\mathbf{N}}
+\def \O {\mathbf{O}}
+\def \P {\mathbf{P}}
+\def \Q {\mathbf{Q}}
+\def \R {\mathbf{R}}
+\def \S {\mathbf{S}}
+\def \T {\mathbf{T}}
+\def \U {\mathbf{U}}
+\def \V {\mathbf{V}}
+\def \W {\mathbf{W}}
+\def \X {\mathbf{X}}
+\def \Y {\mathbf{Y}}
+\def \Z {\mathbf{Z}}
+
+\def\0{\mathbf{0}}
+\def\1{\mathbf{1}}
+
+% ======================================================================================
+% DELIMITERS
+% ======================================================================================
+\providecommand{\abs}[1]{\left| #1 \right|}
+\providecommand{\norm}[1]{\left\| #1 \right\|}
+\providecommand{\card}[1]{\left| #1 \right|}
+\providecommand{\powerset}[1]{\mathcal{P}\left( #1 \right)}
+\providecommand{\inner}[2]{\langle #1, #2 \rangle}
+\providecommand{\ip}[2]{\ensuremath{\langle#1,#2\rangle}}
+\providecommand{\conj}[1]{\overline{#1}}
+\providecommand{\closure}[1]{\overline{#1}}
+
+% ======================================================================================
+% THE TWO-SLOT BRACKET PATTERN
+% ======================================================================================
+% \coord{x}{B} renders [x]_B and \mtx{T}{B}{C} renders [T]_B^C: an object in
+% brackets, with the data it is taken relative to hanging off the brackets. The
+% linear algebra book uses it for coordinate vectors and for the matrix of a map
+% relative to a source and a target basis, and NOTATION.md fixes the slot order
+% once so no section invents its own. Any book with "X relative to Y" notation
+% wants the same discipline; rename the macros if the words change.
+\providecommand{\coord}[2]{[#1]_{#2}}
+\providecommand{\mtx}[3]{[#1]_{#2}^{#3}}
+
+% ======================================================================================
+% COMMON OPERATORS
+% ======================================================================================
+\def\id{\operatorname{id}}
+\def\sgn{\operatorname{sgn}}
+
+% ======================================================================================
+% DERIVATIVES, LIMITS, DIFFERENTIALS
+% ======================================================================================
+\def \dd {\mathrm{d}}
+\providecommand*{\diff}{\mathop{}\:\!\mathrm d}
+\providecommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\providecommand{\pdd}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+\providecommand{\td}[2]{\frac{d #1}{d #2}}
+\providecommand{\tdd}[2]{\frac{d^2 #1}{d #2^2}}
+\providecommand{\limi}[1]{\lim_{#1 \to \infty}}
+\providecommand{\limz}[1]{\lim_{#1 \to 0}}
+
+% ======================================================================================
+% MISCELLANY
+% ======================================================================================
+% "is defined to be". \coloneqq itself comes from mathtools in the PDF and from
+% build/macros.py's WEB_DEFAULTS on the web.
+\providecommand{\defeq}{\stackrel{\smash{\textnormal{\tiny def}}}{=}}
+% Topology
+\providecommand{\interior}[1]{\text{int}\left( #1 \right)}
+\providecommand{\boundary}[1]{\partial #1}
+% One-letter alphabet switches, for the odd letter that has no macro of its own
+\providecommand{\bb}[1]{\mathbb{#1}}
+\providecommand{\cl}[1]{\mathcal{#1}}
+\providecommand{\rom}[1]{\mathrm{#1}}
+% A fallback only: the PDF has the real \bm from the bm package, and
+% build/macros.py's WEB_OVERRIDES gives the website \boldsymbol to match it.
+\providecommand{\bm}[1]{\mathbf{#1}}

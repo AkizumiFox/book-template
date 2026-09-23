@@ -1,0 +1,273 @@
+% Chapter and Section Styling Package
+% Matching the reference template exactly
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{latex/chapter-style}[2025/01/17 Chapter and Section Styling]
+
+% ======================================================================================
+% HEADING FONT SIZES (edit these to tune size; 1pt ≈ 1.33px at 96 DPI)
+% ======================================================================================
+% Chapter (2.3-style): default 28pt
+\newcommand{\chapterfontsize}{28}
+\newcommand{\chapterbaseline}{34}
+% Section (##): default 22pt
+\newcommand{\sectionfontsize}{22}
+\newcommand{\sectionbaseline}{28}
+% Subsection (###): default 18pt
+\newcommand{\subsectionfontsize}{18}
+\newcommand{\subsectionbaseline}{24}
+% Part banner title: default 32pt
+\newcommand{\partbannerfontsize}{32}
+\newcommand{\partbannerbaseline}{40}
+
+% Package option for book mode
+\newif\if@bookmode
+\DeclareOption{bookmode}{\@bookmodetrue}
+\ProcessOptions\relax
+
+\RequirePackage[explicit]{titlesec}
+\RequirePackage{anyfontsize}
+\RequirePackage{etoolbox}
+\RequirePackage{tikz}
+
+% Color definitions for headers
+\definecolor{chaptercolor}{RGB}{40,40,40}
+\definecolor{chaptershadow}{RGB}{80,80,80}
+\definecolor{sectioncolor}{RGB}{60,60,60}
+\definecolor{subsectioncolor}{RGB}{90,90,90}
+
+\makeatletter
+
+% ======================================================================================
+% PREVENT PAGE BREAKS (BOOK MODE ONLY)
+% ======================================================================================
+\if@bookmode
+% Stop Quarto from forcing page breaks between chapters (files)
+\let\originclude\include
+\renewcommand{\include}[1]{\input{#1}}
+
+% Global page break control
+\AtBeginDocument{
+  \let\realclearpage\clearpage
+  \let\realcleardoublepage\cleardoublepage
+  
+  % Force page break after TOC
+  \let\oldmainmatter\mainmatter
+  \renewcommand{\mainmatter}{\oldmainmatter\realclearpage}
+  
+  % Force page break before Part
+  \let\titlesecpart\part
+  \renewcommand{\part}[1]{\realclearpage\titlesecpart{#1}}
+  
+  % Disable clearpage globally for everything else in the body
+  \renewcommand{\clearpage}{\par}
+  \renewcommand{\cleardoublepage}{\par}
+}
+
+\def\@endpart{}
+\fi
+
+% Part divider (a group of chapters): its own page, listed in the table of contents
+\providecommand{\bookpartdivider}[1]{%
+  \@ifundefined{realclearpage}{\clearpage}{\realclearpage}%
+  \thispagestyle{empty}%
+  \vspace*{0.3\textheight}%
+  {\centering\Huge\bfseries #1\par}%
+  \addcontentsline{toc}{part}{#1}%
+  \@ifundefined{realclearpage}{\clearpage}{\realclearpage}%
+}
+
+% ======================================================================================
+% NUMBERING FORMAT
+% ======================================================================================
+% Initialize part to -1 ONLY if not already set by Lua or in standalone mode
+\@ifundefined{thestandalone}{
+  \setcounter{part}{-1}
+}{}
+
+% Display Level 0: Part -1 (preface) shows nothing; Part 0+ shows number
+\renewcommand{\thepart}{\ifnum\value{part}<0 \expandafter\@gobble\else \expandafter\@firstofone\fi{\arabic{part}}}
+% Level 1 (\chapter): X.Y when part>=0; empty when preface (part<0)
+\renewcommand{\thechapter}{\ifnum\value{part}<0 \else \thepart.\arabic{chapter}\fi}
+% Level 2 (\section): X.Y.Z (e.g. 0.1.1, 0.1.2); empty in preface
+% Level 3 (\subsection): X.Y.Z.W; empty in preface (no numbering at ##)
+\renewcommand{\thesection}{\thechapter.\arabic{section}}
+\renewcommand{\thesubsection}{\ifnum\value{part}<0 \else \thesection.\arabic{subsection}\fi}
+
+% Theorem numbering: {chapter}.{serial} — three-level (e.g. 0.1.1, 0.2.1, 0.2.2)
+% latex-template uses dummyD/dummyT counters; override those (not definition/theorem)
+\AtBeginDocument{%
+  \@ifundefined{c@dummyD}{}{%
+    \@removefromreset{dummyD}{section}\@addtoreset{dummyD}{chapter}%
+    \renewcommand{\thedummyD}{\thechapter.\arabic{dummyD}}%
+  }%
+  \@ifundefined{c@dummyT}{}{%
+    \@removefromreset{dummyT}{section}\@addtoreset{dummyT}{chapter}%
+    \renewcommand{\thedummyT}{\thechapter.\arabic{dummyT}}%
+  }%
+}
+
+% ======================================================================================
+% HELPERS
+% ======================================================================================
+\newcommand{\chapterboxheight}{3cm}
+
+% ======================================================================================
+% LEVEL 0: PART / BANNER (full-width chapter banner)
+% ======================================================================================
+% Preface banner: same style as part banner but no "Chapter X" (used for Preface only)
+\newcommand{\prefacebanner}[1]{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[fill=white] (-5cm, 0pt) rectangle (\paperwidth+5cm, 10cm);
+    \fill[fill=chaptershadow] (0pt,-18pt) rectangle (\paperwidth, \chapterboxheight);
+    \fill[fill=chaptercolor] (-16pt,0) rectangle (\paperwidth, \chapterboxheight);
+    \node[anchor=west,xshift=4pt,yshift=18pt] {\color{white}\sffamily\fontsize{\partbannerfontsize}{\partbannerbaseline}\selectfont\bfseries #1};
+  \end{tikzpicture}%
+  \vspace{\chapterboxheight}%
+}
+
+\titleclass{\part}{straight}
+\titleformat{\part}[block]
+{\Huge\bfseries\sffamily}
+{}
+{0pt}
+{%
+  \ifnum\value{part}<0
+    #1%
+  \else
+    % Numbered Chapter Banner
+    \begin{tikzpicture}[remember picture, overlay]
+        \fill[fill=white] (-5cm, 0pt) rectangle (\paperwidth+5cm, 10cm);
+        \fill[fill=chaptershadow] (0pt,-18pt) rectangle (\paperwidth, \chapterboxheight);
+        \fill[fill=chaptercolor] (-16pt,0) rectangle (\paperwidth, \chapterboxheight);
+        \node[anchor=west,yshift=55pt,xshift=-6pt] {\color{white}\sffamily\fontsize{14pt}{18pt}\selectfont Chapter \thepart};
+        \node[anchor=west,xshift=4pt,yshift=18pt] {\color{white}\sffamily\fontsize{\partbannerfontsize}{\partbannerbaseline}\selectfont\bfseries #1};
+    \end{tikzpicture}%
+    \vspace{\chapterboxheight}%
+    \markboth{CHAPTER \thepart. \MakeUppercase{#1}}{CHAPTER \thepart. \MakeUppercase{#1}}%
+  \fi
+}
+\titlespacing*{\part}{0pt}{80pt}{40pt}
+
+% ======================================================================================
+% LEVEL 1: CHAPTER / SECTION BOX (e.g. 2.3 Rank-Nullity Theorem)
+% ======================================================================================
+\titleclass{\chapter}{straight}
+\titleformat{\chapter}[block]
+{\normalfont\fontsize{\chapterfontsize}{\chapterbaseline}\selectfont\bfseries\sffamily}
+{}
+{0pt}
+{%
+  \ifnum\value{part}<0
+    % Preface: banner already shown by \prefacebanner; suppress duplicate chapter title
+    \mbox{}%
+  \else
+    \colorbox{sectioncolor}{\color{white}\sffamily\,\thechapter\,}\quad{\color{chaptercolor}#1}%
+  \fi
+}
+\titlespacing*{\chapter}{0pt}{\ifnum\value{part}<0 0pt\else 4ex plus 1.2ex minus .2ex\fi}{2.8ex plus .3ex}
+
+% Handle numberless
+\titleformat{name=\chapter,numberless}[block]
+{\normalfont\fontsize{\chapterfontsize}{\chapterbaseline}\selectfont\bfseries\sffamily\color{chaptercolor}}
+{}
+{0pt}
+{#1}
+
+% ======================================================================================
+% LEVEL 2: SECTION (## in markdown) - no left line, no bottom line; no number in preface
+% ======================================================================================
+\titleformat{\section}
+{\normalfont\fontsize{\sectionfontsize}{\sectionbaseline}\selectfont\bfseries\sffamily\color{sectioncolor}}
+{\ifnum\value{part}<0 \else \thesection\fi}{\ifnum\value{part}<0 0pt\else 1em\fi}{#1}
+\titlespacing*{\section}{0pt}{3.2ex plus 0.6ex minus 0.2ex}{1.8ex plus 0.3ex}
+
+% ======================================================================================
+% LEVEL 3: SUBSECTION (### in markdown) - black box around number only; no number in preface
+% ======================================================================================
+\titleformat{\subsection}
+{\normalfont\fontsize{\subsectionfontsize}{\subsectionbaseline}\selectfont\bfseries}
+{\ifnum\value{part}<0 \else \fboxsep=4pt\fboxrule=0.5pt\colorbox{black}{\color{white}\thesubsection}\fi}{\ifnum\value{part}<0 0pt\else 0.6em\fi}{#1}
+\titlespacing*{\subsection}{0pt}{2.2ex plus 0.5ex minus 0.2ex}{1.2ex plus 0.2ex}
+\titlespacing*{\subsection}{0pt}{2.2ex plus 0.5ex minus 0.2ex}{1.2ex plus 0.2ex}
+
+% Subsubsection for completeness
+\titleformat{\subsubsection}
+{\normalfont\normalsize\bfseries}
+{\thesubsubsection}{1em}{#1}
+\titlespacing*{\subsubsection}{0pt}{1.5ex plus 0.3ex minus 0.1ex}{0.8ex plus 0.1ex}
+
+% ======================================================================================
+% BOOK MODE: Override chapter/section to match per-PDF styling (font, color, title style)
+% Per-PDF: # -> \section (22pt), ## -> \subsection (18pt black box)
+% Book:    # -> \chapter, ## -> \section => style chapter like section, section like subsection
+% ======================================================================================
+\if@bookmode
+\titleformat{\chapter}[block]
+{\normalfont\fontsize{\sectionfontsize}{\sectionbaseline}\selectfont\bfseries\sffamily\color{sectioncolor}}
+{\ifnum\value{part}<0 \mbox{}\else \thechapter\fi}{\ifnum\value{part}<0 0pt\else 1em\fi}{\ifnum\value{part}<0 \mbox{}\else #1\fi}
+\titlespacing*{\chapter}{0pt}{\ifnum\value{part}<0 0pt\else 3.2ex plus 0.6ex minus 0.2ex\fi}{1.8ex plus 0.3ex}
+
+\titleformat{\section}
+{\normalfont\fontsize{\subsectionfontsize}{\subsectionbaseline}\selectfont\bfseries}
+{\ifnum\value{part}<0 \else \fboxsep=4pt\fboxrule=0.5pt\colorbox{black}{\color{white}\thesection}\fi}{\ifnum\value{part}<0 0pt\else 0.6em\fi}{#1}
+\titlespacing*{\section}{0pt}{2.2ex plus 0.5ex minus 0.2ex}{1.2ex plus 0.2ex}
+
+\titleformat{\subsection}
+{\normalfont\normalsize\bfseries}
+{\thesubsection}{1em}{#1}
+\titlespacing*{\subsection}{0pt}{1.5ex plus 0.3ex minus 0.1ex}{0.8ex plus 0.1ex}
+\fi
+
+% ======================================================================================
+% TOC SPACING & COUNTER FIXES
+% ======================================================================================
+\RequirePackage{tocloft}
+\@addtoreset{chapter}{part}
+\@addtoreset{section}{chapter}
+
+\setlength{\cftpartnumwidth}{0pt}
+\renewcommand{\cftpartpresnum}{}
+\renewcommand{\cftpartaftersnum}{}
+\setlength{\cftchapnumwidth}{3.5em}
+\setlength{\cftsecnumwidth}{4.5em}
+
+\setlength{\cftchapindent}{1.5em}
+\setlength{\cftsecindent}{3.0em}
+
+% ======================================================================================
+% TYPOGRAPHY
+% ======================================================================================
+\setlength{\parskip}{0.8em}
+\setlength{\parindent}{0pt}
+
+% ======================================================================================
+% HEADER/FOOTER
+% ======================================================================================
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{14pt}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\fancyhead[L]{\leftmark}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\makeatother
+
+% ======================================================================================
+% SPEED ALIASES
+% ======================================================================================
+% Math-mode safe vector shortcuts
+% Note: \v, \b, \O, etc. conflict with LaTeX accent/special commands
+% Using DeclareRobustCommand to properly override in both text and math mode
+\AtBeginDocument{%
+  \DeclareRobustCommand*{\v}{\vv}%
+  \DeclareRobustCommand*{\w}{\vw}%
+  \DeclareRobustCommand*{\x}{\vx}%
+  \DeclareRobustCommand*{\y}{\vy}%
+  \DeclareRobustCommand*{\z}{\vz}%
+  \DeclareRobustCommand*{\b}{\vb}%
+  \DeclareRobustCommand*{\s}{\vs}%
+  \DeclareRobustCommand*{\a}{\va}%
+  \DeclareRobustCommand*{\O}{\mathbf{O}}%
+}

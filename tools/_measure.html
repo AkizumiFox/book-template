@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!-- Lists every display formula wider than the book's text column.
+     Copied into _build/html and driven headless; see authoring/measure-displays.md. -->
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="mathjax.css">
+<style>
+  #stage { width: 39rem; position: absolute; left: -10000px; top: 0; }
+  body { font-family: sans-serif; }
+</style>
+</head><body>
+<div id="stage" class="content"></div>
+<pre id="out">measuring…</pre>
+<script>
+(async () => {
+  const out = document.getElementById('out');
+  const stage = document.getElementById('stage');
+  const lines = [];
+  let measured = 0;
+  try {
+    const nav = await fetch('navigation.json').then(r => r.json());
+    // Chapter index pages and the extras carry maths too, and measuring only the numbered
+    // sections quietly left about twenty pages unchecked.
+    const pages = [];
+    for (const ch of nav.chapters || []) {
+      if (ch.path) pages.push(ch.path);
+      for (const s of ch.sections || []) if (s.path) pages.push(s.path);
+    }
+    for (const e of nav.extras || []) if (e.path) pages.push(e.path);
+    if (nav.preface && nav.preface.path) pages.push(nav.preface.path);
+    // The math fonts must be loaded before anything is measured, or fallback
+    // metrics make every display look far too wide.
+    stage.innerHTML = '<mjx-container display="true"><mjx-math><mjx-mi>x</mjx-mi></mjx-math></mjx-container>';
+    await document.fonts.ready;
+    await new Promise(r => setTimeout(r, 300));
+    stage.innerHTML = '';
+    const limit = stage.getBoundingClientRect().width;
+    for (const path of pages) {
+      let html;
+      try { html = await fetch(path).then(r => r.text()); } catch { continue; }
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const content = doc.querySelector('.content') || doc.body;
+      for (const node of content.querySelectorAll('mjx-container[display="true"]')) {
+        measured++;
+        stage.innerHTML = '';
+        stage.append(node.cloneNode(true));
+        const el = stage.firstElementChild;
+        // The container is a block and always fills the column; the typeset maths inside it
+        // is what can stick out, so mjx-math is the box to measure.
+        const math = el.querySelector('mjx-math');
+        const width = math ? math.getBoundingClientRect().width
+                           : Math.max(el.scrollWidth, el.getBoundingClientRect().width);
+        if (width > limit + 0.5) {
+          const tex = (node.getAttribute('data-tex') || node.textContent || '')
+              .replace(/\s+/g, ' ').slice(0, 90);
+          lines.push(`${Math.round(100 * width / limit)}%\t${path}\t${tex}`);
+        }
+      }
+    }
+    lines.sort((a, b) => parseInt(b) - parseInt(a));
+    // A page whose maths was never prerendered carries no mjx-container at all, and the run
+    // would then report a clean book because it found nothing to measure. Refuse to: "none"
+    // must mean "measured everything, nothing overflowed".
+    if (measured === 0) {
+      out.textContent = 'MEASURED NOTHING: no display maths found on any of the ' + pages.length
+          + ' pages. The site is not MathJax-prerendered; run a full build and measure again. '
+          + 'This is NOT a clean result.';
+      return;
+    }
+    out.textContent = lines.length
+        ? lines.join('\n')
+        : 'none (' + measured + ' displays measured on ' + pages.length + ' pages)';
+  } catch (error) {
+    out.textContent = 'measure failed: ' + error.message;
+  }
+})();
+</script></body></html>

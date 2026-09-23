@@ -1,0 +1,38 @@
+# Words the spell check (./build.py check) accepts, one per line; "#" starts a comment.
+#
+# This list grows per book. It starts almost empty on purpose: the linear algebra
+# book's copy reached 664 lines, nearly all of it that book's own vocabulary
+# (Gershgorin, cyclotomic, subrepresentation), and inheriting someone else's
+# vocabulary means a genuine typo in a word this book never uses goes unreported.
+#
+# Below are only the words that any proof-based mathematics book needs and aspell
+# does not know. Append to it as you write -- the check is a warning, not a
+# failure, so add a word when you are sure it is spelled the way you mean it.
+bijection
+bijective
+codomain
+contrapositive
+injective
+injectivity
+surjective
+surjectivity
+iff
+invertible
+biconditional
+disjunction
+LHS
+RHS
+contraposition
+# Words from the engine and the authoring workflow, which the prose of a
+# template page uses and a real book's front matter often does too.
+Pandoc
+Markdown
+LaTeX
+MathJax
+TikZ
+SVG
+config
+runnable
+Roadmap
+# Book-specific vocabulary starts here.
+Collatz
