@@ -52,6 +52,19 @@ def write_redirects(book: Book, deploy_dir) -> int:
     return count
 
 
+def is_stale_chapter_dir(name: str, chapter_slugs) -> bool:
+    """A chapter directory left in the HTML output by an earlier build, under a slug the
+    book no longer uses. Such a directory must not be published: its pages are stale, and
+    publishing one at an old URL also stops `write_redirects` writing the redirect that
+    should stand there, because it finds a real page and steps aside.
+
+    `[a-z]*` is load-bearing. A chapter directory may carry a letter after its number
+    (`ch24a-notation`), and without it `ch23a-notation` fails to match, is taken for a live
+    chapter and is republished. That is a real bug this function was extracted to fix.
+    """
+    return bool(re.match(r"ch\d+[a-z]*-", name)) and name not in chapter_slugs
+
+
 def deploy(book: Book, run_build: bool = True, push: bool = False) -> bool:
     """
     Build and check the book (if run_build), then replace the contents of deploy-dir with
@@ -100,7 +113,7 @@ def deploy(book: Book, run_build: bool = True, push: bool = False) -> bool:
 
     chapter_slugs = {c.slug for c in book.chapters}
     for item in html_dir.iterdir():
-        if item.is_dir() and re.match(r"ch\d+-", item.name) and item.name not in chapter_slugs:
+        if item.is_dir() and is_stale_chapter_dir(item.name, chapter_slugs):
             continue  # output of a chapter that was renamed or removed (stale build files)
         if item.name.startswith("_"):
             continue  # a scratch harness built by hand for measuring or testing, never published
