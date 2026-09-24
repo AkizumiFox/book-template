@@ -1,49 +1,50 @@
 % Preamble for Pandoc Generation
-% The sleek style is the base; the book is layered on top.
+% The page style is the base; the book is layered on top.
 %
-% latex/sleek/  vendored sleek (page, headers, typography, the framed theorem
-%               style) -- see latex/sleek/README.md
+% latex/page-style.sty       the page: base packages, geometry, running-head frame
+% latex/theorem-frame.sty    the mdframed style and the \declaretheorem key the
+%                            book's environments are framed with
 % latex/latex-template.sty   the book's macros, colours and helpers
 % latex/chapter-style.sty    chapters, \part banners, running heads
-% latex/theorem-envs.sty     the environments filters/theorems.lua emits, framed
-%                            the sleek way, in the colours from the book's config
+% latex/theorem-envs.sty     the environments filters/theorems.lua emits, in that
+%                            frame, in the colours from the book's config
 
 % ======================================================================================
 % ONE DECISION PER SHARED PACKAGE
 % ======================================================================================
-% Sixteen packages are loaded by both sleek and the book. Most take no options
+% Sixteen packages are loaded by both the page style and the book. Most take no options
 % and so cannot clash; these are the ones that do. Naming the options here, before
 % anything pulls the packages in, means no load order can produce an option clash
 % and there is a single place that says which settings win.
 
-% xcolor: sleek loads it plain, latex-template wants dvipsnames. dvipsnames wins.
+% xcolor: page-style loads it plain, latex-template wants dvipsnames. dvipsnames wins.
 \PassOptionsToPackage{dvipsnames}{xcolor}
 % hyperref: loaded exactly once, by templates/latex/template.tex, after
 % latex/macros.tex (it reclaims \H, restored at the bottom of this file). These
-% are sleek's link settings, handed to that one load.
+% are the book's link settings, handed to that one load.
 \PassOptionsToPackage{pdfusetitle,linktoc=page,allcolors=blue}{hyperref}
-% mdframed: sleek-theorems and latex-template both ask for framemethod=TikZ, so
+% mdframed: theorem-frame and latex-template both ask for framemethod=TikZ, so
 % the second load is a no-op. Do NOT hand it the same option from here as well:
 % mdframed reads the frame method by \input-ing a file, and it would do it twice.
 % tcolorbox (most,breakable,skins,theorems) is loaded only by latex-template,
-% and caption's skip=1em only by sleek, which is loaded first -- latex-template's
+% and caption's skip=1em only by page-style, which is loaded first -- latex-template's
 % later option-free load of caption is a subset and cannot clash.
 
 % ======================================================================================
-% THE SLEEK BASE
+% THE BASE
 % ======================================================================================
-% Page geometry, running-head frame, paragraph style, tables, figures and the
-% link colours. latex/sleek/sleek.sty is the one place the page is decided; it
+% Page geometry, running-head frame, paragraph style, tables and figures, and
+% the packages they need. latex/page-style.sty is the one place the page is decided; it
 % keeps the book's uniform 2.5cm margin, so the measure -- and every line break
 % in 3,300 pages -- is unchanged.
-\usepackage{latex/sleek/sleek}
+\usepackage{latex/page-style}
 
 \usepackage{bbm}
 
 % ======================================================================================
 % THE BOOK ON TOP
 % ======================================================================================
-% Macros, colours and helpers. sleek owns the page (skipgeometry), the pandoc
+% Macros, colours and helpers. page-style owns the page (skipgeometry), the pandoc
 % template owns hyperref (skiphyperref), latex/chapter-style owns the headings
 % (skiptitlesec) and latex/theorem-envs owns the environments (skipenv).
 \usepackage[skipgeometry,skiphyperref,skiptitlesec,skipenv]{latex/latex-template}
@@ -54,10 +55,10 @@
 \setlist{itemsep=1.2em, parsep=0pt}
 
 % Chapter styling (bookmode: two-level no box, three-level black box, correct font
-% sizes) plus the \part banners and running heads, none of which sleek has.
+% sizes) plus the \part banners and running heads, none of which page-style has.
 \usepackage[bookmode]{latex/chapter-style}
 
-% The environments filters/theorems.lua emits, in sleek's framed style. Which
+% The environments filters/theorems.lua emits, in the book's framed style. Which
 % environments exist, their names, counters and colours come from the book's
 % config: the build writes them to _build/tmp/environments.tex, included right
 % after this file. That covers the numbered forms, the unnumbered ones and the

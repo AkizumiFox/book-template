@@ -240,7 +240,7 @@ class Book:
         digest = hashlib.sha1()
         files = sorted(self.filters_dir.glob("*.lua"))
         files += [self.html_template, self.latex_template, self.html_styles, self.config_file, self.macros_file]
-        # rglob: the vendored sleek style lives in latex/sleek/
+        # rglob: any subdirectory of latex/ counts too
         files += sorted((ENGINE_ROOT / "latex").rglob("*"))
         for path in files:
             if path.is_file():

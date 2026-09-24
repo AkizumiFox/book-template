@@ -22,17 +22,7 @@ SOFTWARE.
 
 
 -------------------------------------------------------------------------------
-Third-party components
--------------------------------------------------------------------------------
 
-The licence above covers this repository's own work: the build engine, the Lua
-filters, the templates, the LaTeX styles written for it, the authoring
-standards and the demo chapter.
-
-It does NOT cover `latex/sleek/`, which vendors two files from a third party's
-LaTeX style, recorded in `latex/sleek/README.md` along with every modification
-made to them. Those files remain under whatever terms their author set. As of
-this writing the upstream repository named in that README could not be reached
-and no licence statement accompanies the files, so their terms are unverified;
-anyone redistributing this repository should establish them, or replace the two
-files, before relying on the licence above for that directory.
+The licence above covers everything in this repository: the build engine, the
+Lua filters, the templates, the LaTeX styles written for it, the authoring
+standards and the demo chapter. No part of the tree is third-party work.

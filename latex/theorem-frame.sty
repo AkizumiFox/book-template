@@ -1,0 +1,93 @@
+% ======================================================================================
+% THE FRAME THEOREMS ARE SET IN
+% ======================================================================================
+% Two things, and nothing else:
+%
+%   1. `bookframe', an mdframed style: the rounded, thick-ruled box with a
+%      tinted title bar that every environment in the book wears. It is a
+%      \mdfdefinestyle, so latex/theorem-envs.sty can derive one style per
+%      environment from it with style=bookframe and a colour.
+%   2. `mdthm', a key for thmtools' \declaretheorem, so that an environment can
+%      be declared -- name, counter, sibling, numbering -- in one place and come
+%      out framed:
+%
+%          \declaretheorem[mdthm={style=bookframe@theorem}, name=Theorem]{theorem}
+%
+% Both are written from the packages' own documented interfaces:
+% \mdfdefinestyle and \mdtheorem from the mdframed manual, and thmtools'
+% documented way of extending \declaretheorem (a key in the `thmdef' family;
+% thmtools' own thmdef-thmbox.sty adds \newboxtheorem the same way).
+%
+% latex/theorem-envs.sty builds on this: it derives `bookenv' from `bookframe'
+% with nobreak=false and the book's split skips, then one style per environment
+% with the colour from config/config.json.
+% ======================================================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{latex/theorem-frame}[2026/09/24 Framed theorem style and the mdthm key for thmtools]
+
+\RequirePackage{amsthm}
+\RequirePackage{thmtools}
+\RequirePackage[framemethod=TikZ]{mdframed}
+
+% ======================================================================================
+% THE mdthm KEY
+% ======================================================================================
+% thmtools builds each environment by calling \thmt@theoremdefiner, which is
+% \newtheorem unless a key says otherwise; a key that wants a different definer
+% sets it during the first of the two passes \declaretheorem makes over its
+% option list (\thmt@trytwice takes the first-pass code and the second-pass
+% code, in that order). mdframed's \mdtheorem has \newtheorem's signature with
+% a leading optional argument of mdframed keys, so handing it over whole is all
+% this takes.
+%
+% This is not thmtools' own `mdframed' key, which wraps an already-defined
+% theorem in \begin{mdframed}...\end{mdframed} and leaves the head inside the
+% box as running text. \mdtheorem instead gives mdframed the head as a
+% frametitle, which is what puts the name and number in the tinted bar.
+\define@key{thmdef}{mdthm}[{}]{%
+    \thmt@trytwice{\def\thmt@theoremdefiner{\mdtheorem[#1]}}{}%
+}
+
+% amsthm keeps a theorem style in \th@<name> and reads \thm@preskip when the
+% environment opens. With parskip loaded, \parskip is the distance between two
+% paragraphs, and a theorem that sits between two paragraphs should stand off
+% the text by at least as much; appending to the style adds it to whatever the
+% style itself asked for. All three of amsthm's built-in styles get it.
+\newcommand\bookframe@stylepreskip[1]{%
+    \expandafter\g@addto@macro\csname th@#1\endcsname{%
+        \addtolength\thm@preskip\parskip
+    }%
+}
+\bookframe@stylepreskip{plain}
+\bookframe@stylepreskip{definition}
+\bookframe@stylepreskip{remark}
+
+% ======================================================================================
+% THE FRAME
+% ======================================================================================
+% A box with a 0.25em rule in a light grey, corners rounded just enough to read
+% as rounded, half an em of air on every side, and a title bar in the same grey
+% as the rule. `theoremseparator' is the mdframed key that says what comes
+% between the environment's name-and-number and its optional title in that bar:
+% a full stop, so a box reads "Theorem 1.2.3. Rank-nullity".
+%
+% Lengths are in em so the box scales with the surrounding type; the vertical
+% skips are \topskip, the length TeX already uses for the gap above the first
+% line of a page, which is close enough to a blank line to read as one.
+\mdfdefinestyle{bookframe}{%
+    linewidth=0.25em,
+    roundcorner=0.15em,
+    linecolor=black!10,
+    frametitlebackgroundcolor=black!10,
+    innerleftmargin=0.5em,
+    innerrightmargin=0.5em,
+    innertopmargin=0.5em,
+    innerbottommargin=0.5em,
+    skipabove=\topskip,
+    skipbelow=\topskip,
+    nobreak=true,
+    theoremseparator={.},
+}
+
+\endinput

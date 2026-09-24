@@ -117,8 +117,8 @@ def write_metadata_file(book: Book, page: Page, output_format: str, metadata: di
 # The environments come from the book's config (environment_settings) and the
 # Lua filter turns them into \begin{theorem} ... in the LaTeX it writes. The
 # same config has to reach the preamble, or the environments would have no
-# definition and no colour. latex/theorem-envs.sty holds the style -- sleek's
-# framed theorem look -- and this writes the one-line declaration per
+# definition and no colour. latex/theorem-envs.sty holds the style -- the
+# book's framed theorem look -- and this writes the one-line declaration per
 # environment that fills it in.
 
 # Display names for the small environments, the same overrides

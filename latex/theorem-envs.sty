@@ -1,8 +1,8 @@
 % ======================================================================================
-% BOOK ENVIRONMENTS IN THE SLEEK FRAME
+% BOOK ENVIRONMENTS IN THE BOOK'S FRAME
 % ======================================================================================
-% Every environment filters/theorems.lua can emit, built on sleek's framed
-% theorem style (latex/sleek/sleek-theorems.sty: the "thicc" mdframed style and
+% Every environment filters/theorems.lua can emit, built on the book's framed
+% theorem style (latex/theorem-frame.sty: the "bookframe" mdframed style and
 % the \declaretheorem[mdthm=...] pattern).
 %
 % This file holds the *style* only. Which environments exist, what they are
@@ -12,9 +12,9 @@
 % ======================================================================================
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{latex/theorem-envs}[2026/09/23 Book environments in the sleek frame]
+\ProvidesPackage{latex/theorem-envs}[2026/09/24 Book environments in the book's frame]
 
-\RequirePackage{latex/sleek/sleek-theorems}
+\RequirePackage{latex/theorem-frame}
 \RequirePackage{etoolbox}
 \RequirePackage{xcolor}
 
@@ -31,11 +31,11 @@
 % ======================================================================================
 % THE FRAME
 % ======================================================================================
-% sleek's "thicc" style, with the two changes a 3,300-page book needs: boxes may
+% The "bookframe" style, with the two changes a 3,300-page book needs: boxes may
 % break across pages (a single proof can be longer than a page), and a broken box
 % keeps the book's split skips.
 \mdfdefinestyle{bookenv}{%
-    style=thicc,
+    style=bookframe,
     nobreak=false,
     % mdframed's keys are not reset for a nested box, so a box inside a titled
     % one would repeat that title. Clearing it here is safe: \mdtheorem passes
@@ -51,9 +51,9 @@
 }
 
 % \bookenvstyle{<env>}{<colour>} -- the environment's own mdframed style.
-% The colour is the config one; the tints keep sleek's weights (a !20 rule and
-% title bar over a barely-there wash), so the hue is the book's and the look is
-% sleek's.
+% The colour is the config one; the tints keep the frame's weights (a !20 rule
+% and title bar over a barely-there wash), so every environment is the same box
+% in a different hue.
 \newcommand{\bookenvstyle}[2]{%
     \mdfdefinestyle{bookenv@#1}{%
         style=bookenv,
@@ -114,7 +114,8 @@
 }
 
 % \bookbigenv{<env>}{<Name>}{<counter group>}{<colour>} -- numbered, sharing the
-% group's counter. This is sleek's own pattern, with the colour from the config.
+% group's counter. \declaretheorem does the numbering, mdthm the frame, and the
+% colour comes from the config.
 \newcommand{\bookbigenv}[4]{%
     \providecolor{#4}{HTML}{6B6F7A}%
     \bookenvstyle{#1}{#4}%

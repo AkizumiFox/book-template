@@ -223,11 +223,12 @@ shared colour, a length, a helper macro an environment body calls.
 - `src/` — the book. One directory per chapter, one file per section.
 - `config/config.json` — this book's settings: chapters, environments and counters,
   deploy target. `latex/macros.tex` — this book's macros, used by both formats.
-- `build/`, `filters/`, `templates/`, `latex/*.sty`, `latex/sleek/` — the engine, shared
+- `build/`, `filters/`, `templates/`, `latex/*.sty` — the engine, shared
   by any book built with it (`./build.py serve --book ../other-book`; see "Another book"
   in `BUILD.md`).
-- `latex/sleek/` — François Rozet's vendored *sleek* style, which the page and the boxes
-  are built on. `latex/sleek/README.md` records every change made to it and why.
+- `latex/page-style.sty` and `latex/theorem-frame.sty` — the page and the frame the boxes
+  are built on, written from the documentation of `geometry`, `fancyhdr`, `parskip`,
+  `mdframed` and `thmtools`. `latex/README.md` says what is in them and who owns what.
 - `authoring/` — the writing standard (`STYLE.md`), the agent brief (`DRAFTING.md`), the
   notation table to fill in (`NOTATION.md`), and how to hunt overflowing displays
   (`measure-displays.md`).

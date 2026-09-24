@@ -1,0 +1,101 @@
+% ======================================================================================
+% PAGE STYLE
+% ======================================================================================
+% The base the rest of the preamble is layered on. Three things only:
+%
+%   1. the packages every page of the book needs, loaded once, in one place, so
+%      that no later \usepackage can produce an option clash;
+%   2. the page itself -- the 2.5cm margin, and the fancyhdr frame the running
+%      heads hang on;
+%   3. two typographic defaults: paragraphs separated by a skip rather than
+%      indented, and slightly airier table rows.
+%
+% Everything here is written against the public interface of the packages it
+% loads (geometry's key-value margins, fancyhdr's \fancyhead/\fancyfoot,
+% parskip, array's \arraystretch); nothing reaches inside one.
+%
+% What is deliberately NOT here:
+%
+%   * hyperref. It is loaded exactly once, by templates/latex/template.tex,
+%     after latex/macros.tex -- it has to be, because it reclaims \H. Its
+%     options reach that load from latex/preamble.tex with \PassOptionsToPackage.
+%   * \headrulewidth. latex/chapter-style.sty owns the running heads and sets
+%     the 0.4pt rule; this file only puts the fancy page style in place.
+%   * \parindent and \parskip lengths. latex/chapter-style.sty sets both after
+%     this file has loaded, so what parskip still contributes here is its
+%     corrections to the vertical spacing of lists.
+%   * the parfill option to parskip. It sets \parfillskip=30pt plus 1fil: 30pt
+%     of glue at the end of every paragraph that can stretch but not shrink,
+%     which adds 30pt to the natural width of every single-line paragraph and
+%     turns lines that merely reached the margin into overfull boxes. Measured
+%     over one book's 262 section PDFs, switching it on costs 67 overfull boxes
+%     (290 -> 357). It must not come back.
+% ======================================================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{latex/page-style}[2026/09/24 Page geometry, running-head frame and base packages]
+
+% ======================================================================================
+% PACKAGES
+% ======================================================================================
+
+% Input and font encoding. T1 needs a scalable T1 font to avoid falling back to
+% bitmapped Type 3 glyphs; Latin Modern is that font, and is metric-compatible
+% with Computer Modern.
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{lmodern}
+
+% The page: margins, the header/footer frame, and footnotes pushed to the foot
+% of the page rather than floating up against the last float.
+\RequirePackage{geometry}
+\RequirePackage{fancyhdr}
+\RequirePackage[bottom]{footmisc}
+
+% Paragraphs, lists and colour.
+\RequirePackage{parskip}
+\RequirePackage{enumitem}
+\RequirePackage{xcolor}
+
+% Mathematics.
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{bm}
+
+% Figures and their captions. skip=1em is the gap between a figure and its
+% caption; subcaption must come after caption, which it patches.
+\RequirePackage[skip=1em]{caption}
+\RequirePackage{subcaption}
+
+% Tables: column types, rules, spanning cells.
+\RequirePackage{array}
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+
+% ======================================================================================
+% THE PAGE
+% ======================================================================================
+% One uniform margin on all four sides. This is the single place the measure is
+% decided: latex/preamble.tex loads geometry with no options at all, and every
+% line break in the book follows from the \textwidth this leaves.
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+% The running-head frame: nothing on the left, the current chapter mark on the
+% right, the page number centred in the foot. latex/chapter-style.sty is loaded
+% later and rebuilds the fields with \fancyhf; what this establishes is that
+% `fancy' is the page style and that a plain \pagestyle{fancy} page already
+% looks right.
+\pagestyle{fancy}
+\fancyhead[L]{}
+\fancyhead[R]{\leftmark}
+\fancyfoot[C]{\thepage}
+
+% ======================================================================================
+% TABLES
+% ======================================================================================
+% Array rows 10% taller than the default. array's \arraystretch multiplies
+% \baselineskip when a table row is built; at 1.0 booktabs rules sit tight
+% against the text above them.
+\renewcommand{\arraystretch}{1.1}
+
+\endinput
