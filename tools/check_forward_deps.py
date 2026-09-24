@@ -29,19 +29,28 @@ from pathlib import Path
 INDEX = Path("_build/crossref_labels.json")
 
 
-CHAPTER = re.compile(r"^ch(\d+)[^/]*/(\d+|index)")
+CHAPTER = re.compile(r"^ch(\d+)([a-z]*)[^/]*/(\d+|index)")
 
 
 def from_file(path):
     """Exercises and examples carry no number, but their path names the section.
 
-    'ch15-norms/04-spectral-radius.html' -> (15, 4); an index page -> (n, 0).
+    'ch15-norms/04-spectral-radius.html' -> (15, '', 4); an index page -> (n, '', 0).
+
+    A chapter directory may carry a letter after its number: `ch23a-notation` is
+    an appendix to Chapter 23 that must not be renamed, because `latex` and
+    `theorems.lua` rely on it reading as chapter 23 so that no part banner and no
+    "Chapter 24" is emitted (see `authoring/STATUS.md`). That letter is the middle
+    component of the key, so `ch23a-notation/index` -> (23, 'a', 0) sorts *after*
+    every section of `ch23-applied`, which keys as (23, '', n). Reading the page as
+    (23, 0) -- section zero of Chapter 23 -- would place it before Chapter 23's own
+    sections and misreport any label put there.
     """
     m = CHAPTER.match(path or "")
     if not m:
         return None
-    section = 0 if m.group(2) == "index" else int(m.group(2))
-    return int(m.group(1)), section
+    section = 0 if m.group(3) == "index" else int(m.group(3))
+    return int(m.group(1)), m.group(2), section
 
 
 RESULT_TYPES = {"theorem", "proposition", "corollary", "lemma"}

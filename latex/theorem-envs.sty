@@ -146,6 +146,22 @@
 }
 
 % ======================================================================================
+% THE OPTIONAL MARKER
+% ======================================================================================
+% A result written `::: {#thm-foo .optional}` is worth stating and proving but is not
+% on anybody's path: an illustration, or a bridge to another part of the book. The
+% filter opens its box with \bookoptionalnote, which says so in the same quiet voice
+% the small environments use for "Proof." -- a first line inside the frame, not a
+% banner over it. The promise it makes is checked: ./build.py check fails if any proof
+% in the book cites an optional result.
+\newcommand{\bookoptionalnote}{%
+    \par\noindent
+    {\footnotesize\itshape\color{black!55}Optional: nothing later depends on this.}%
+    \par\vspace{0.25em}%
+    \noindent\ignorespaces
+}
+
+% ======================================================================================
 % SMALL ENVIRONMENTS (proof, remark, solution, ...)
 % ======================================================================================
 % The same frame without a title bar: filters/theorems.lua writes the head

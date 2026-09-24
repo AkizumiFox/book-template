@@ -603,6 +603,17 @@ div.equation mjx-container[display="true"] {
   color: color-mix(in srgb, var(--env-color), var(--ink-strong) 35%);
 }
 
+/* An optional result: stated and proved, but nothing later in the book rests on it.
+   The marker rides on the title line in the quiet voice the idea blocks use, so it
+   reads as part of the box's furniture; the build refuses to ship a proof that cites
+   one, which is what makes the promise safe to believe. */
+.theorem-title .env-optional {
+  font-size: 0.82em;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--muted);
+}
+
 .env li {
   margin-bottom: 0.3em;
 }
@@ -1021,6 +1032,162 @@ div.equation mjx-container[display="true"] {
   font-style: italic;
 }
 
+/* --- Reading paths (build/extras.py) --- */
+.paths-lede {
+  color: var(--ink);
+  font-size: 1.05rem;
+}
+
+.paths-table {
+  width: 100%;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.paths-table th {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--rule-strong);
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.paths-table td {
+  padding: 0.7rem 0.6rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: baseline;
+}
+
+.paths-number {
+  width: 7rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.paths-name {
+  display: block;
+  color: var(--ink-strong);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.paths-description {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.paths-delta {
+  margin-left: 0.4rem;
+  color: var(--faint);
+  font-size: 0.8rem;
+}
+
+.paths-foot,
+.path-key,
+.path-context {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.path-counts {
+  margin: 1.2rem 0;
+  padding: 0.8rem 1rem;
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft, transparent);
+}
+
+.path-counts p {
+  margin: 0.25rem 0;
+}
+
+.path-figure {
+  color: var(--ink-strong);
+  font-size: 1.15rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.path-chapter h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 1.4rem 0 0.4rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid var(--rule);
+  font-size: 1rem;
+}
+
+.path-chapter-count {
+  color: var(--faint);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+}
+
+.path-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.path-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.5rem;
+  margin: 0;
+  padding: 0.25rem 0 0.25rem 0.75rem;
+  border-left: 2px solid var(--rule);
+  font-size: 0.95rem;
+}
+
+.path-section a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.path-section a:hover {
+  text-decoration: underline;
+}
+
+.path-number {
+  display: inline-block;
+  min-width: 2.6rem;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.path-section.is-target {
+  border-left-color: var(--accent);
+  font-weight: 600;
+}
+
+.path-section.is-target a {
+  color: var(--ink-strong);
+}
+
+/* Needed only by the written solutions: on the path for a reader who works the exercises */
+.path-section.is-extra {
+  border-left-style: dotted;
+}
+
+.path-extra-mark {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.path-weak {
+  color: var(--faint);
+  font-size: 0.75rem;
+}
+
 /* --- Dependency graph page --- */
 .wide-page {
   --content-width: 60rem;
@@ -1127,6 +1294,14 @@ div.equation mjx-container[display="true"] {
   margin-top: 0.5rem;
   color: var(--faint);
   font-size: 0.75rem;
+}
+
+/* What the chosen section needs, spelled out under the graph */
+.graph-closure {
+  margin-top: 0.9rem;
+  padding: 0.6rem 0.9rem;
+  border-left: 3px solid var(--accent);
+  font-size: 0.9rem;
 }
 
 @media (max-width: 900px) {

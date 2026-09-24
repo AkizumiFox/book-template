@@ -97,6 +97,32 @@ class TestForwardDeps(unittest.TestCase):
         })
         self.assertEqual(code, 1)
 
+    def test_lettered_chapter_directory_sorts_after_that_chapter(self):
+        # `ch23a-notation` is an appendix to Chapter 23 and must keep its name:
+        # `latex`/`theorems.lua` need it to read as chapter 23. Its index page
+        # used to key as (23, 0) -- section zero -- so it sat *before* Chapter
+        # 23's own sections, and a label put there would cite them "forward".
+        tool = load_tool()
+        self.assertGreater(
+            tool.from_file("ch23a-notation/index.html"),
+            tool.from_file("ch23-applied/12-last.html"),
+        )
+        code, out = run({
+            "thm-notation": label("ch23a-notation/index.html", "23.0.1",
+                                  uses=["thm-last"]),
+            "thm-last": label("ch23-applied/12-last.html", "23.12.1"),
+        })
+        self.assertEqual(code, 0, out)
+
+    def test_lettered_chapter_directory_still_cannot_cite_a_later_chapter(self):
+        code, out = run({
+            "thm-notation": label("ch23a-notation/index.html", "23.0.1",
+                                  uses=["thm-later"]),
+            "thm-later": label("ch24-x/01-a.html", "24.1.1"),
+        })
+        self.assertEqual(code, 1)
+        self.assertIn("forward: thm-notation", out)
+
 
 if __name__ == "__main__":
     unittest.main()

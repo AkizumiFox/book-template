@@ -17,7 +17,7 @@ from .macros import mathjax_macros_js
 from .manifest import (scan_labels, load_scan, generate_theorem_manifest, generate_navigation_manifest,
                        generate_search_index, generate_site_files, page_description)
 from .pandoc import build_pandoc_command, page_metadata, run_pandoc
-from .extras import generate_extra_pages
+from .extras import extra_page_names, generate_extra_pages
 from .math import MATHJAX_VERSION, ensure_mathjax, render_math
 from .tikz import build_tikz_figures
 from .utils import print_step, print_file_action, print_success, print_error
@@ -199,7 +199,7 @@ def build_html(book: Book, specific_file: Optional[Path] = None, dev_reload: boo
     if mathjax:
         targets = [book.html_dir / page.html_path for page, _ in built]
         if extras_ok:
-            targets += [book.html_dir / name for name in ("results.html", "graph.html")]
+            targets += [book.html_dir / name for name in extra_page_names(book)]
         # One file per result, under theorems/<chapter>/; the glob must recurse or the
         # tooltips ship raw TeX and the reader waits on MathJax at the first hover.
         shards = sorted((book.html_dir / "theorems").glob("*/*.json"))

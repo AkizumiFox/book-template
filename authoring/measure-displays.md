@@ -1,8 +1,8 @@
-# Finding displays that overflow the text column
+# Finding maths that overflows the text column
 
 The harness lives in the repo at `tools/_measure.html`. Copy it into the built site and drive
-it headless: it renders every display formula of every section into a 39rem column (the
-book's text width) and lists the ones that stick out, as
+it headless: it renders every formula of every section into a 39rem column (the book's text
+width) and lists the ones that stick out, as
 `percent<TAB>page<TAB>first characters of the formula`, widest first.
 
 ```bash
@@ -19,6 +19,17 @@ import sys, re, html
 m = re.search(r'<pre id=\"out\">(.*?)</pre>', sys.stdin.read(), re.S)
 print(html.unescape(m.group(1)).strip() if m else '(no output)')"
 ```
+
+Add `?mode=inline` to the URL to measure the **inline** maths instead of the displays. It is
+the same page list, the same font warm-up and the same column, so the two sets of numbers are
+comparable by construction; a clean run says `none (N inline formulas measured on M pages)`
+rather than `none (N displays ...)`. Measure both after any bulk edit: inline maths overflows
+the column as readily as a display and is easier to miss.
+
+**Making an over-wide inline formula a display fixes nothing by itself.** A display is set in
+the same column, so a 124% inline chain becomes a 124% display. What fixes the width is
+breaking the chain across lines inside an `aligned`, or moving its left-hand side into the
+prose. Never shrink the font to buy width.
 
 **Measure `mjx-math`, not `mjx-container`.** The container is a block with `max-width: 100%`
 and `overflow-x: auto`, so it always reports exactly the column width and a naive measurement

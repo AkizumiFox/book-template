@@ -116,6 +116,34 @@ For each theorem:
 
 When a brute-force route exists, it is fine to say in the Idea that it is legitimate but messy, then take the structural one.
 
+### Optional results
+
+Some results are worth stating and proving and yet nobody is obliged to read them: an illustration of a definition just given, a remark that deserves a proof, a bridge showing how this corner of the book meets another. Keep writing them. Mark them:
+
+```markdown
+::: {#thm-foo .optional}
+[A Title]
+```
+
+`.optional` goes on the statement's div, beside its id. Both editions then print a marker on the title line -- *Optional: nothing later depends on this.* -- and the reader may skip the block, its Idea and its proof without wondering what they lost.
+
+**What it buys.** The reading paths (`tools/reading_path.py`) treat an optional result's citations as context rather than prerequisites. Nothing requires the result, so nothing it cites can be required through it, and it puts no section on anybody's path. That is the point: a short result that cites a chapter the surrounding section otherwise never needs will drag that chapter onto every path that passes nearby. Marked optional, it drags nothing, and the label stays in the book.
+
+**The invariant.** *Nothing anywhere may be proved from an optional result.* No proof, proof idea, claim or written solution may cite one -- in the whole book, not just later in the section. `tools/check_optional.py` checks it and `./build.py check` fails on it, naming the citing sites:
+
+```
+ch11-x/04: thm-later cites thm-aside in its proof,
+but thm-aside is marked optional (ch10-y/06)
+```
+
+When that fires, one of two things is true: the result is genuinely used, so drop `.optional`; or the citing argument can be written without it, so write it that way. Never both mark a result optional and lean on it -- the marker is a promise printed on the page.
+
+Prose, statements, remarks, warnings and quick checks may point at an optional result freely. That is how a connection is meant to be referred to.
+
+**When to reach for it.** An illustration, or a connection between two parts of the book. Never use it on something a later proof needs, and never as a way to keep a result whose citations you would rather not justify. If in doubt, ask what breaks if the reader skips it: if the answer is anything but "a sentence elsewhere loses a pointer", it is not optional.
+
+Run `python3 tools/check_optional.py --list` to see everything currently marked.
+
 ## 5. Examples, checks, warnings, remarks
 
 - **Examples** `::: {#exm-slug}` with a `[Title]` first line. State the question inside the example. Put the worked answer in a following `::: {.solution}`; it starts folded on the web. Choose data so the computation is clean.

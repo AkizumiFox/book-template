@@ -12,7 +12,9 @@ import unittest
 from pathlib import Path
 
 SRC = Path(__file__).resolve().parent.parent / "src"
-LABEL = re.compile(r'^:{3,}\s*\{#((thm|lem|prp|cor|cnj|def|exm|exr)-[a-z0-9-]+)\}')
+# A statement's div may carry classes beside its id (`{#thm-foo .optional}`), and a
+# proof after one still belongs to it.
+LABEL = re.compile(r'^:{3,}\s*\{#((thm|lem|prp|cor|cnj|def|exm|exr)-[a-z0-9-]+)(\s+\.[a-z0-9-]+)*\s*\}')
 PROOF = re.compile(r'^:{3,}\s*\{\.proof(\s+of="([a-z0-9-]+)")?\s*\}')
 
 
@@ -40,7 +42,7 @@ class TestProofOwnership(unittest.TestCase):
         named = []
         for md in SRC.rglob("*.md"):
             text = md.read_text()
-            labels.update(re.findall(r'\{#([a-z]+-[a-z0-9-]+)\}', text))
+            labels.update(re.findall(r'\{#([a-z]+-[a-z0-9-]+)(?:\s+\.[a-z0-9-]+)*\s*\}', text))
             named += [(md.relative_to(SRC), m) for m in re.findall(r'\{\.proof\s+of="([a-z0-9-]+)"\}', text)]
         missing = [f"{path}: {m}" for path, m in named if m not in labels]
         self.assertEqual(missing, [])

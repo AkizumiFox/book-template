@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<!-- Lists every display formula wider than the book's text column.
-     Copied into _build/html and driven headless; see authoring/measure-displays.md. -->
+<!-- Lists every formula wider than the book's text column.
+     `_measure.html` measures the displays; `_measure.html?mode=inline` measures the
+     inline maths instead. Copied into _build/html and driven headless;
+     see authoring/measure-displays.md. -->
 <html><head><meta charset="utf-8">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="mathjax.css">
@@ -15,6 +17,15 @@
 (async () => {
   const out = document.getElementById('out');
   const stage = document.getElementById('stage');
+  // Two modes over one page list, one font warm-up and one column width, so the
+  // inline numbers and the display numbers are comparable by construction.
+  // `?mode=inline` measures inline maths; anything else measures the displays.
+  const mode = new URLSearchParams(location.search).get('mode') === 'inline'
+      ? 'inline' : 'display';
+  const selector = mode === 'inline'
+      ? 'mjx-container:not([display="true"])'
+      : 'mjx-container[display="true"]';
+  const noun = mode === 'inline' ? 'inline formulas' : 'displays';
   const lines = [];
   let measured = 0;
   try {
@@ -40,13 +51,15 @@
       try { html = await fetch(path).then(r => r.text()); } catch { continue; }
       const doc = new DOMParser().parseFromString(html, 'text/html');
       const content = doc.querySelector('.content') || doc.body;
-      for (const node of content.querySelectorAll('mjx-container[display="true"]')) {
+      for (const node of content.querySelectorAll(selector)) {
         measured++;
         stage.innerHTML = '';
         stage.append(node.cloneNode(true));
         const el = stage.firstElementChild;
         // The container is a block and always fills the column; the typeset maths inside it
-        // is what can stick out, so mjx-math is the box to measure.
+        // is what can stick out, so mjx-math is the box to measure. An inline container is
+        // an inline-block that shrinks to its contents, but mjx-math is still the right box:
+        // it is what the reader has to fit on the line.
         const math = el.querySelector('mjx-math');
         const width = math ? math.getBoundingClientRect().width
                            : Math.max(el.scrollWidth, el.getBoundingClientRect().width);
@@ -62,14 +75,17 @@
     // would then report a clean book because it found nothing to measure. Refuse to: "none"
     // must mean "measured everything, nothing overflowed".
     if (measured === 0) {
-      out.textContent = 'MEASURED NOTHING: no display maths found on any of the ' + pages.length
-          + ' pages. The site is not MathJax-prerendered; run a full build and measure again. '
-          + 'This is NOT a clean result.';
+      out.textContent = 'MEASURED NOTHING: no ' + mode + ' maths found on any of the '
+          + pages.length + ' pages. The site is not MathJax-prerendered; run a full build '
+          + 'and measure again. This is NOT a clean result.';
       return;
     }
+    // The tally goes on a dirty run too: it is the only evidence that the run measured
+    // the whole book rather than a handful of pages that happened to be prerendered.
+    const tally = measured + ' ' + noun + ' measured on ' + pages.length + ' pages';
     out.textContent = lines.length
-        ? lines.join('\n')
-        : 'none (' + measured + ' displays measured on ' + pages.length + ' pages)';
+        ? lines.join('\n') + '\n\n' + lines.length + ' over the column (' + tally + ')'
+        : 'none (' + tally + ')';
   } catch (error) {
     out.textContent = 'measure failed: ' + error.message;
   }

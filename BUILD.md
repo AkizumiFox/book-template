@@ -73,9 +73,18 @@ build warnings.
 
 - `results.html`: every definition, theorem and example, grouped by chapter and section,
   with filters and previews.
-- `graph.html`: dependency graph of the results. An arrow means "is used by": solid for an
-  `@reference` in a result's statement or in the proof, solution or remark after it, dashed
-  where such a text names a theorem, lemma, corollary or proposition by its title.
+- `graph.html`: dependency graph of the chapters. An arrow from one chapter to another
+  means a *proof* in the second uses a result from the first, and its width counts those
+  proofs. Citations made outside a proof -- a statement, a remark, an exercise, a written
+  solution -- are carried as "soft" and shown on hover rather than drawn, as is any
+  dependency a longer chain already implies. A picker computes the reading path of any one
+  section and dims the chapters it never reaches.
+- `paths.html` and one `path-<slug>.html` per reader profile: the sections a reader needs
+  in order to reach the results that profile aims at, in reading order, with what can be
+  skipped. Profiles are declared in the config under `reading-paths`; the closure is
+  computed from the book's own proofs at build time. **A path that is not closed -- one
+  whose sections do not carry all their own prerequisites -- fails the build.**
+  `python3 tools/reading_path.py --help` is the same machinery on the command line.
 
 ## Reader features (no configuration)
 

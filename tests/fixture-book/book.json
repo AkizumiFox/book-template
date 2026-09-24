@@ -2,6 +2,14 @@
     "title": "Fixture Book",
     "author": "Test Author",
     "macros": "macros.tex",
+    "reading-paths": [
+        {
+            "slug": "example",
+            "name": "An example reader",
+            "description": "Everything the second section's proofs rest on.",
+            "targets": ["ch01-basics/02"]
+        }
+    ],
     "chapters": [
         "src/ch01-basics",
         {

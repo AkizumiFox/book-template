@@ -22,3 +22,13 @@ A quick check.
 Its answer.
 :::
 :::
+
+::: {#thm-aside .optional}
+[An Aside]
+
+An illustration, proved here, that nothing later in the book uses.
+:::
+
+::: {.proof}
+By @lem-helper, which is all this needs.
+:::

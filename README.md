@@ -15,6 +15,8 @@ One source — Pandoc Markdown in `src/` — becomes both a website and a set of
 | Validate references and numbering | `./build.py check` |
 | Run the engine tests | `python3 -m pytest tests/ -q` |
 | Check no result cites a later section | `python3 tools/check_forward_deps.py` (after `./build.py html`) |
+| Work out what a reader needs | `python3 tools/reading_path.py --list-profiles`, then `--profile <slug>` |
+| Check nothing is proved from an optional result | `python3 tools/check_optional.py` (also run by `check`) |
 | Check the external tools are installed | `./build.py doctor` |
 | Publish | `./build.py deploy --push` (see `DEPLOY.md`) |
 
@@ -31,7 +33,8 @@ a macro defined once works in both formats. Math is rendered at build time under
 so pages arrive finished and load no math script.
 
 On top of that the build generates a search index, a list of every result, a dependency
-graph of which result uses which, and hover previews for every reference.
+graph of which result uses which, hover previews for every reference, and a reading-path
+page per reader profile (see "Reading paths" below).
 
 Three gates keep the book honest, and all three must pass:
 
@@ -39,9 +42,9 @@ Three gates keep the book honest, and all three must pass:
   writes a PDF even after an error, so success is judged by the error lines in the log,
   not by the file existing. (Before this gate existed, 38 sections shipped damaged.)
 - **`./build.py check`** — unresolved `@refs`, duplicate labels, cross-reference links
-  pointing nowhere, and any label whose number in the PDF differs from its number on the
-  web. It also warns, without failing, about spelling and about a named result mentioned
-  in prose without a reference.
+  pointing nowhere, any label whose number in the PDF differs from its number on the
+  web, and any proof that rests on a result marked `.optional`. It also warns, without
+  failing, about spelling and about a named result mentioned in prose without a reference.
 - **`python3 -m pytest tests/ -q`** — the engine's own tests, which build
   `tests/fixture-book` end to end, plus three linters that read *this* book's `src/`:
   no blank line inside a display, no non-ASCII character inside a math span, and no proof
@@ -94,6 +97,66 @@ Nothing is numbered by hand. Everything is derived from names on disk.
   cited by title.
 - **Parts** are cosmetic: a `"part"` key on a chapter entry starts a new part banner there.
 
+## Reading paths
+
+The build knows which environment made every citation — a proof, a proof idea and a claim
+are *hard*, a statement, a remark, an exercise or a written solution are *soft* — so it can
+answer the question a reader actually asks: **if I want that theorem, what must I read
+first?** Following the hard citations backwards from a section gives the smallest set of
+sections whose proofs are all complete, and nothing else.
+
+A **reader profile** is a name and a handful of target sections. Declare them in
+`config/config.json` under `reading-paths`, which is the whole interface — no code:
+
+```json
+"reading-paths": [
+  {
+    "slug": "example",
+    "name": "The worked section",
+    "description": "One sentence naming what this reader is after, in their language.",
+    "targets": ["ch00-demo/01"]
+  }
+]
+```
+
+- `slug` — lowercase letters, digits and hyphens. It names the page, `path-<slug>.html`.
+- `targets` — sections written the way the files name them, `<chapter directory>/<section
+  number>`: `ch07-block-matrices/03`, or `ch07-block-matrices/index` for a chapter's index
+  page. **Choose the sections, not the chapters**; a chapter-level answer is roughly twice
+  as long, and it is a section that a reader actually turns to.
+
+Pick each target by reading what the section *contains*, not by its title: the target is
+the result this reader came for. Two or three to half a dozen per profile is the usual
+shape, and a profile whose path is nearly the whole book is telling you it is aimed too
+broadly.
+
+Each build then writes `paths.html`, listing every profile with its two lengths, and one
+`path-<slug>.html` per profile giving the sections in reading order, what can be skipped,
+and where the path hangs on a single proof. The two lengths are the same path counted two
+ways: the reading path, and the path for a reader who also works the exercises, since a
+written solution is the proof of its exercise. Nothing here picks one for the reader.
+
+**Every generated path is checked before it is written, and an unclosed path fails the
+build.** Closed means every result a proof on the path uses is proved by another section
+on the path. That is the whole point: a path with a gap in it is worse than no path.
+
+On the command line, without building the pages:
+
+```
+python3 tools/reading_path.py --list-profiles
+python3 tools/reading_path.py --profile example
+python3 tools/reading_path.py ch00-demo/01 --with-exercises --weakest 2
+python3 tools/reading_path.py ch00-demo/01 --verify
+```
+
+`--weakest N` lists the sections the path pulls in on at most N hard citations, with the
+citing sites. Those are the cheap prunes: reword or move one citation and the section, and
+everything only it needed, leaves the path.
+
+The demo profile above ships with this template and aims at the one section the template
+has. It is an example of the *shape*, not of the content — replace it with this book's
+readers before the second chapter exists, and delete it along with `src/ch00-demo/`.
+
 ## The standing rules
 
 The two books built on this engine follow these. They are worth keeping, because each one
@@ -110,6 +173,11 @@ was adopted after the alternative caused a mess.
   `./build.py html`: it reads `_build/crossref_labels.json` and exits 1 if any result
   cites one from a later section. It is a separate command, not part of `check`, so put
   it in the routine yourself.
+- **A result marked `.optional` may be cited, but never proved from.** Writing
+  `::: {#thm-foo .optional}` prints "Optional: nothing later depends on this" in both
+  editions and takes the result off every reading path. A remark, a statement or an
+  exercise may point at it; a proof, a proof idea, a claim or a written solution may not,
+  and `./build.py check` fails if one does.
 - **Section titles carry no mathematics.** They become links, bookmarks and running heads.
 - **One notation per idea, fixed in `authoring/NOTATION.md` before first use.** A second
   notation for the same thing costs a whole-book pass to retire.
@@ -166,7 +234,8 @@ shared colour, a length, a helper macro an environment body calls.
 - `spelling.txt` — words the spell check accepts; grows per book.
 - `widgets/` — JavaScript modules available to `::: {.widget}`.
 - `tests/` — the engine's tests and the small fixture book they build.
-- `tools/` — the forward-dependency checker and the display-width harness.
+- `tools/` — the forward-dependency checker, the optional-result checker, the
+  reading-path tool and the display-width harness.
 - `.github/workflows/` — build, test and check on every push; publish on `main` once the
   `DEPLOY_KEY` secret and the `SITE_REPO` variable exist.
 - `_build/`, `site/` and `docs/` are build output and are gitignored.

@@ -76,7 +76,8 @@ def _scan_page(book: Book, page: Page, meta_file) -> dict | None:
             data = json.loads(line[len("SCAN_RESULT:"):])
             data = {"labels": data.get("labels") or {}, "refs": data.get("refs") or [], "text": data.get("text") or "",
                     "description": data.get("description") or "", "prose": data.get("prose") or "",
-                    "uses": data.get("uses") or {}, "block_text": data.get("block_text") or {},
+                    "uses": data.get("uses") or {}, "uses_kinds": data.get("uses_kinds") or {},
+                    "block_text": data.get("block_text") or {},
                     "errors": errors}
             cache_file.parent.mkdir(parents=True, exist_ok=True)
             cache_file.write_text(json.dumps(data), encoding="utf-8")
@@ -102,8 +103,12 @@ def scan_labels(book: Book) -> dict:
         if data is None:
             continue
         uses = data.get("uses") or {}
+        # uses_kinds: cited label -> the environments that cited it ("proof", "remark", the
+        # owning result's own type for its statement). `uses` keeps its flat-list shape.
+        uses_kinds = data.get("uses_kinds") or {}
         for label_id, info in data["labels"].items():
             info = dict(info, file=page.html_path, shard=page.shard, uses=uses.get(label_id, []),
+                        uses_kinds=uses_kinds.get(label_id, {}),
                         text=(data.get("block_text") or {}).get(label_id, ""))
             global_labels.setdefault(label_id, info)
         scan_files[page.html_path] = {
@@ -215,6 +220,7 @@ def navigation_data(book: Book) -> dict:
         "author": book.author,
         "home": {"title": preface.title, "path": preface.html_path} if preface else None,
         "extras": [
+            {"title": "Reading paths", "path": "paths.html", "icon": "bi-signpost-split"},
             {"title": "List of results", "path": "results.html", "icon": "bi-list-ol"},
             {"title": "Dependency graph", "path": "graph.html", "icon": "bi-diagram-3"},
         ],
@@ -355,7 +361,8 @@ def generate_site_files(book: Book):
     """robots.txt and sitemap.xml (when deploy-domain is set) and a 404 page."""
     domain = (book.config.get("deploy-domain") or "").strip()
     if domain:
-        paths = [p.html_path for p in book.pages] + ["results.html", "graph.html"]
+        from .extras import extra_page_names   # local import: extras imports this module
+        paths = [p.html_path for p in book.pages] + extra_page_names(book)
         urls = "\n".join(f"  <url><loc>https://{domain}/{path}</loc></url>" for path in paths)
         _write_if_changed(book.html_dir / "sitemap.xml",
                           '<?xml version="1.0" encoding="UTF-8"?>\n'

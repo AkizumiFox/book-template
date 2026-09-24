@@ -46,3 +46,18 @@ The unit square is mapped to the parallelogram spanned by the columns of \( A \)
 :::
 :::
 :::
+
+::: {.proof}
+By @thm-main, the determinant is what it is. This proof citation is the fixture's only
+cross-chapter **hard** edge, so the dependency graph and every reading path over the
+fixture rest on it.
+:::
+
+::: {.remark}
+@def-thing is named here and nowhere used, which makes this a **soft** edge: the graph
+carries it, and no reading path follows it.
+:::
+
+::: {.remark}
+Compare @thm-aside, which no proof is allowed to lean on.
+:::

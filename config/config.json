@@ -3,7 +3,8 @@
     "Settings for one book. See README.md ('Start a book') and BUILD.md ('Another book').",
     "Every key marked TODO below is empty on purpose and needs this book's value.",
     "environment_settings is the template's inheritance: the environments, counters and",
-    "colours both existing books use. Change it only if this book really needs to."
+    "colours both existing books use. Change it only if this book really needs to.",
+    "reading-paths declares this book's readers; see README.md ('Reading paths')."
   ],
   "_TODO": [
     "title",
@@ -89,6 +90,16 @@
       "check"
     ]
   },
+  "reading-paths": [
+    {
+      "slug": "example",
+      "name": "The worked section",
+      "description": "Everything the proofs of the demonstration section rest on. One profile, aimed at the one section this template ships, so the machinery has something real to compute; replace it with this book's readers.",
+      "targets": [
+        "ch00-demo/01"
+      ]
+    }
+  ],
   "chapters": [
     "src/ch00-demo"
   ],
