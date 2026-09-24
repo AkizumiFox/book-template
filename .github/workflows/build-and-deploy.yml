@@ -1,18 +1,9 @@
-# Builds the book on every push to main, checks it, and publishes the site.
-#
-# Setup (once), for a private or public repository holding this source:
-#   1. Create an SSH key pair:        ssh-keygen -t ed25519 -f deploy_key -N ""
-#   2. In the *site* repository (the empty public repo the built HTML is pushed to):
-#      Settings > Deploy keys > Add deploy key, paste deploy_key.pub, allow write access.
-#   3. In this repository: Settings > Secrets and variables > Actions >
-#      New repository secret DEPLOY_KEY, paste the private key (deploy_key), and
-#      repository variables SITE_REPO (e.g. USER/my-book) and, optionally,
-#      SITE_DOMAIN (the custom domain, written into CNAME).
-# Until DEPLOY_KEY and SITE_REPO exist the publish step is skipped, so the workflow
-# builds and checks a fresh book without any setup at all.
-# Pull requests are built and checked but not published.
+# Builds the book on every push to main and checks it. It does not publish:
+# the site is deployed from the author's machine with ./build.py deploy --push,
+# which is also what writes the CNAME and the redirect stubs.
+# Pull requests are built and checked too. No secrets are needed.
 
-name: Build and deploy
+name: Build and check
 
 on:
   push:
@@ -69,15 +60,6 @@ jobs:
       - name: Check references, links, numbering
         run: ./build.py check
 
-      - name: Publish to the site repository
-        if: >-
-          github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-          && secrets.DEPLOY_KEY != '' && vars.SITE_REPO != ''
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          deploy_key: ${{ secrets.DEPLOY_KEY }}
-          external_repository: ${{ vars.SITE_REPO }}
-          publish_branch: main
-          publish_dir: ./_build/html
-          cname: ${{ vars.SITE_DOMAIN }}
-          commit_message: Deploy
+      # No publish step on purpose. The site is deployed from the author's machine
+      # with ./build.py deploy --push. A second publisher would need a deploy key and
+      # would race with the local one.
